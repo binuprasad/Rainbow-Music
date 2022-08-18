@@ -45,7 +45,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 BottomNavigationBar(
                     type: BottomNavigationBarType.fixed,
                     backgroundColor: Colors.black,
-                    selectedItemColor: Colors.green,
+                    selectedItemColor:     Colors.yellow,
                     unselectedItemColor: Colors.white,
                     currentIndex: baseindex,
                     onTap: (newIndex) {

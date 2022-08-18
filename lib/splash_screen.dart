@@ -21,12 +21,10 @@ class _SpalshScreenState extends State<SpalshScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Colors.black,
         body: Center(
-            child: Text(
-      'MUSIC MASCA',
-      style: TextStyle(
-          fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
-    )));
+            child:Image(image: AssetImage('assets/image/appicon copy.jpeg',),fit: BoxFit.fill,))
+    );
   }
 
   Future<void> gotologin(BuildContext context) async {

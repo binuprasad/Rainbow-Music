@@ -27,7 +27,7 @@ class _FavouriteBtnState extends State<FavouriteBtn> {
                       style:
                           TextStyle(color: Color.fromARGB(255, 247, 247, 247)),
                     ),
-                    duration: Duration(milliseconds: 1500),
+                    duration: Duration(milliseconds: 350),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {

@@ -41,14 +41,14 @@ class _MiniPlayerState extends State<MiniPlayer> {
               Icons.music_note,
               color: Colors.amber,
             ),
-            id: GetAllSongs.playingSong[GetAllSongs.currentIndex].id,
+            id: GetAllSongs.playingSong[GetAllSongs.player.currentIndex!].id,
             type: ArtworkType.AUDIO),
         title: MarqueeText(
           style: const TextStyle(color: Colors.amber),
           speed: 15,
           text: TextSpan(
-              text: GetAllSongs.playingSong[GetAllSongs.currentIndex]
-                  .displayNameWOExt),
+              text: GetAllSongs.playingSong[GetAllSongs.player.currentIndex!]
+                  .title),
         ),
         trailing: IconButton(
           icon: StreamBuilder<bool>(
