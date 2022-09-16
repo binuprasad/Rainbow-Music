@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/favourite/favourite_db.dart';
+import 'package:music_player/db/favourite_db.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavouriteBtn extends StatefulWidget {

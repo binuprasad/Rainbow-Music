@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
-import 'package:music_player/about_screen.dart';
-import 'package:music_player/feedback_url.dart';
-import 'package:music_player/playlist/playlist_db.dart';
+import 'package:music_player/view/screens/about_screen.dart';
+import 'package:music_player/view/screens/feedback_url.dart';
+import 'package:music_player/db/playlist_db.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {

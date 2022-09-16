@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/favourite/favourite_button.dart';
-import 'package:music_player/favourite/favourite_db.dart';
-import 'package:music_player/full_screen.dart';
-import 'package:music_player/get_all_songs.dart';
-import 'package:music_player/settings_screen.dart';
+import 'package:music_player/view/favourite/favourite_button.dart';
+import 'package:music_player/db/favourite_db.dart';
+import 'package:music_player/view/screens/full_screen.dart';
+import 'package:music_player/view/screens/get_all_songs.dart';
+import 'package:music_player/view/screens/settings_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 

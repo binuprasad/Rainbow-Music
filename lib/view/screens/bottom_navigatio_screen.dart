@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/favourite/favourite_db.dart';
-import 'package:music_player/favourite/favourite_screen.dart';
-import 'package:music_player/get_all_songs.dart';
-import 'package:music_player/home_screen.dart';
-import 'package:music_player/miniscreen.dart';
-import 'package:music_player/playlist/playlist_screen.dart';
-import 'package:music_player/search_screen.dart';
+import 'package:music_player/db/favourite_db.dart';
+import 'package:music_player/view/favourite/favourite_screen.dart';
+import 'package:music_player/view/screens/get_all_songs.dart';
+import 'package:music_player/view/screens/home_screen.dart';
+import 'package:music_player/view/screens/miniscreen.dart';
+import 'package:music_player/view/playlist/playlist_screen.dart';
+import 'package:music_player/view/screens/search_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 int baseindex = 0;

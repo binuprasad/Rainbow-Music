@@ -1,9 +1,9 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_player/favourite/favourite_button.dart';
-import 'package:music_player/favourite/favourite_db.dart';
-import 'package:music_player/get_all_songs.dart';
+import 'package:music_player/view/favourite/favourite_button.dart';
+import 'package:music_player/db/favourite_db.dart';
+import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -23,7 +23,7 @@ class _FullScreenState extends State<FullScreen> {
   void initState() {
     super.initState();
     GetAllSongs.player.currentIndexStream.listen((index) {
-      if (index != null && mounted()) {
+      if (index != null && mounted) {
         setState(() {
           currentIndexes = index;
         });
@@ -79,7 +79,7 @@ class _FullScreenState extends State<FullScreen> {
                       keepOldArtwork: true,
                       id: widget.playersong[currentIndexes].id,
                       type: ArtworkType.AUDIO,
-                      nullArtworkWidget:  Container(
+                      nullArtworkWidget:  SizedBox(
                     
                         height: height/2.5,
                         width: width,

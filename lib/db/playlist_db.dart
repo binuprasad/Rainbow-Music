@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:music_player/favourite/favourite_db.dart';
+import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/model/model.dart';
-import 'package:music_player/splash_screen.dart';
+import 'package:music_player/view/screens/splash_screen.dart';
 
 ValueNotifier<List<MusicModel>> playlistnotifier = ValueNotifier([]);
 Future<void> playlistAdd(MusicModel value) async {

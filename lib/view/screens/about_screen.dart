@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
+import 'package:get/get.dart';
+import 'package:music_player/colors/colors.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.yellow, Colors.white])),
+              colors: appcolor)),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -31,7 +33,8 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
           automaticallyImplyLeading: false,
           leading: IconButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
+                // Navigator.of(context).pop();
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -49,12 +52,9 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
                 tabs: const [
                      Tab(text: 'app'),
                       Tab(text: 'Developer',),
-                 
-                ],
-               
-              ),
-              
-            ),
+                      ],
+                      ),
+                      ),
              CustomCard(
               color: const Color.fromARGB(255, 235, 239, 230),
               elevation: 15,
@@ -70,17 +70,18 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
                       child: Text(
                       'Welcome to MusicMusca and enjoy listening offline music with better experience. If you have any suggestions you can inform me by clicking the feedback section in the settings,We will try to improve our app more better,thank you.',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
+                     ),
                     ),
-                  Center(
+                   Center(
                     child: Text(
                      "I am Binuprasad.Expertised in UI/UX Designing and Flutter development based on kerala,if you have any queries related to  musicapp or about me by taping 'Contact' on the settings. Once of all thank you for supporting me.",
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
-                  ])
-                ),
-              ),
+                ],
+              )
+            ),
+           ),
           ],
         ),
       ),

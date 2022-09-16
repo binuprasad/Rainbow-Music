@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
-import 'package:music_player/full_screen.dart';
-import 'package:music_player/get_all_songs.dart';
+import 'package:music_player/view/screens/full_screen.dart';
+import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MiniPlayer extends StatefulWidget {
@@ -16,7 +16,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
   @override
   void initState() {
     GetAllSongs.player.currentIndexStream.listen((index) {
-      if (index != null && mounted()) {
+      if (index != null && mounted) {
         setState(() {});
       }
     });
@@ -31,7 +31,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
       ),
       duration: const Duration(seconds: 2),
       child: ListTile(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        onTap: () =>
+         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) =>
                 FullScreen(playersong: GetAllSongs.playingSong))),
         leading: QueryArtworkWidget(

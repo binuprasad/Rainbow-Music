@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:music_player/bottom_navigatio_screen.dart';
+import 'package:music_player/view/screens/bottom_navigatio_screen.dart';
 
 class SpalshScreen extends StatefulWidget {
   const SpalshScreen({Key? key}) : super(key: key);

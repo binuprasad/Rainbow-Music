@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/full_screen.dart';
-import 'package:music_player/get_all_songs.dart';
+import 'package:music_player/view/screens/full_screen.dart';
+import 'package:music_player/view/screens/get_all_songs.dart';
 
-import 'package:music_player/home_screen.dart';
+import 'package:music_player/view/screens/home_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SearchSong extends StatefulWidget {

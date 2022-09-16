@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:music_player/colors/colors.dart';
 import 'package:music_player/model/model.dart';
-import 'package:music_player/playlist/playlist_db.dart';
-import 'package:music_player/playlist/playlist_view.dart';
+import 'package:music_player/db/playlist_db.dart';
+import 'package:music_player/view/playlist/playlist_view.dart';
 
 class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Colors.yellow, Colors.white])),
+                  colors: appcolor)),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -201,7 +202,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                         width: 100.0,
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                primary: Colors.black),
+                                                backgroundColor: Colors.black),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
@@ -212,7 +213,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                         width: 100.0,
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                primary:  Colors.black
+                                                backgroundColor:  Colors.black
                                                     ),
                                             onPressed: () {
                                               if (_formKey.currentState!
@@ -235,7 +236,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       );
                     });
               },
-              child: const Icon(Icons.playlist_add,color: Colors.yellowAccent, ),
+              child: const Icon(
+                Icons.playlist_add,
+              color: Colors.yellowAccent, ),
             ),
           ),
         );

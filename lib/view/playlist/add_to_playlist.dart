@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/model/model.dart';
-import 'package:music_player/playlist/playlist_db.dart';
+import 'package:music_player/db/playlist_db.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AddToPlaylist extends StatefulWidget {
