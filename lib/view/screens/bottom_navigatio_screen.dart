@@ -11,9 +11,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 int baseindex = 0;
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({
-    Key? key,
-  }) : super(key: key);
+  const BottomNavigationScreen({Key? key,}) : super(key: key);
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -21,7 +19,7 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final _pages = [
-    const HomeScreen(),
+     HomeScreen(),
     const SearchSong(),
     const PlaylistScreen(),
     const FavouriteScreen(),

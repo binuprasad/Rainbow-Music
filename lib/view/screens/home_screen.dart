@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:music_player/colors/colors.dart';
+import 'package:music_player/controller/home_screen_controller.dart';
 import 'package:music_player/view/favourite/favourite_button.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:music_player/view/screens/settings_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+   HomeScreen({Key? key}) : super(key: key);
   static List<SongModel> songs = [];
+  final homeController = Get.put(HomeScreenController());
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+ 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   requestPermision();
+  // }
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    requestPermision();
-  }
+  // void requestPermision() async {
+  //   await Permission.storage.request();
+  //   setState(() {});
+  // }
 
-  void requestPermision() async {
-    await Permission.storage.request();
-    setState(() {});
-  }
-
-  final audioquery = OnAudioQuery();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.yellow, Colors.white])),
+              colors: appcolor)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -46,13 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           title: const Text(
             'All Songs',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold),
           ),
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SettingsScreen()));
+                  Get.to( SettingsScreen());
                 },
                 icon: const Icon(
                   Icons.settings,
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: FutureBuilder<List<SongModel>>(
-          future: audioquery.querySongs(
+          future:homeController. audioquery.querySongs(
               sortType: null,
               orderType: OrderType.ASC_OR_SMALLER,
               uriType: UriType.EXTERNAL,
@@ -94,9 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           GetAllSongs.createSongList(item.data!),
                           initialIndex: index);
                       GetAllSongs.player.play();
-                      setState(() {});
-                      GetAllSongs.player.play();
-                      setState(() {});
+                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(

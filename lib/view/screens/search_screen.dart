@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/colors/colors.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 
@@ -46,7 +47,7 @@ class _HomePageState extends State<SearchSong> {
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Colors.yellow, Colors.white])),
+                  colors:appcolor)),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.transparent,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/model/model.dart';
@@ -24,13 +25,11 @@ Future<void> playlistDelete(int index) async {
   getAllPlaylist();
 }
 
-Future<void> appReset(context) async {
+Future<void> appReset() async {
   final playlistDB = Hive.box<MusicModel>('playlist_db');
   final favDB = Hive.box<int>('favourite_db');
   await favDB.clear();
   await playlistDB.clear();
   FavouriteDB.favoriteSongs.value.clear();
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const SpalshScreen()),
-      (route) => false);
+ Get.offAll(const SpalshScreen());
 }

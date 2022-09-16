@@ -1,36 +1,35 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_player/colors/colors.dart';
+import 'package:music_player/controller/fullscreen.dart';
 import 'package:music_player/view/favourite/favourite_button.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/rxdart.dart'as rx;
 
-class FullScreen extends StatefulWidget {
-  const FullScreen({Key? key, required this.playersong}) : super(key: key);
+class FullScreen extends StatelessWidget {
+   FullScreen({Key? key, required this.playersong}) : super(key: key);
   final List<SongModel> playersong;
 
-  @override
-  State<FullScreen> createState() => _FullScreenState();
-}
 
-class _FullScreenState extends State<FullScreen> {
-  
-  int currentIndexes = 0;
+  final fullScreencontroller = Get.put(FullScreencontroller());
 
-  @override
-  void initState() {
-    super.initState();
-    GetAllSongs.player.currentIndexStream.listen((index) {
-      if (index != null && mounted) {
-        setState(() {
-          currentIndexes = index;
-        });
-        GetAllSongs.currentIndex = index;
-      }
-    });
-  }
+
+  // @override
+  // void initState() { 
+  //   super.initState();
+  //   GetAllSongs.player.currentIndexStream.listen((index) {
+  //     if (index != null && mounted) {
+  //       setState(() {
+  //         currentIndexes = index;
+  //       });
+  //       GetAllSongs.currentIndex = index;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class _FullScreenState extends State<FullScreen> {
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Colors.yellow, Colors.white])),
+                  colors: appcolor)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -56,7 +55,7 @@ class _FullScreenState extends State<FullScreen> {
           automaticallyImplyLeading: false,
           leading: IconButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
                 FavouriteDB.favoriteSongs.notifyListeners();
               },
               icon: const Icon(
@@ -72,12 +71,12 @@ class _FullScreenState extends State<FullScreen> {
               children: [
                 Column(
                   children: [
-                    QueryArtworkWidget(
+                   Obx(() =>  QueryArtworkWidget(
                       artworkHeight: height/2.3,
                       artworkWidth:width,
                       artworkFit: BoxFit.fill,
                       keepOldArtwork: true,
-                      id: widget.playersong[currentIndexes].id,
+                      id: playersong[fullScreencontroller. currentIndexes.value].id,
                       type: ArtworkType.AUDIO,
                       nullArtworkWidget:  SizedBox(
                     
@@ -88,19 +87,19 @@ class _FullScreenState extends State<FullScreen> {
                           size: height/4,
                         ),
                       ),
-                    ),
+                    ),),
 
                     Padding(
                       padding: const EdgeInsets.only(top:10.0),
                       child: Text(
-                        widget.playersong[ currentIndexes].displayNameWOExt,
+                        playersong[fullScreencontroller. currentIndexes.value].displayNameWOExt,
                         maxLines: 1,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                     Text(
-                      widget.playersong[ currentIndexes].artist.toString(),
+                      playersong[fullScreencontroller. currentIndexes.value].artist.toString(),
                       maxLines: 1,
                     )
                   ],
@@ -163,7 +162,7 @@ class _FullScreenState extends State<FullScreen> {
                             },
                           ),
                         ),
-                        FavouriteBtn(song: widget.playersong[currentIndexes]),
+                        FavouriteBtn(song: playersong[fullScreencontroller. currentIndexes.value]),
                        StreamBuilder<bool>(
                     stream: GetAllSongs.player.shuffleModeEnabledStream,
                     builder: (context, snapshot) {
@@ -189,12 +188,7 @@ class _FullScreenState extends State<FullScreen> {
                       children: [
                         IconButton(
                           onPressed: () async {
-                            if (GetAllSongs.player.hasPrevious) {
-                              await GetAllSongs.player.seekToPrevious();
-                              await GetAllSongs.player.play();
-                            } else {
-                              await GetAllSongs.player.play();
-                            }
+                            fullScreencontroller.previousbutton();
                           },
                           icon: const Icon(
                             Icons.skip_previous,
@@ -205,13 +199,7 @@ class _FullScreenState extends State<FullScreen> {
                           padding: const EdgeInsets.only(bottom: 29,right: 25 ),
                           child: IconButton(
                             onPressed: () async {
-                              if (GetAllSongs.player.playing) {
-                                await GetAllSongs.player.pause();
-                                setState(() {});
-                              } else {
-                                await GetAllSongs.player.play();
-                                setState(() {});
-                              }
+                              fullScreencontroller.playButton();
                             },
                             icon: StreamBuilder(
                               stream: GetAllSongs.player.playingStream,
@@ -235,13 +223,8 @@ class _FullScreenState extends State<FullScreen> {
                         ),
                         IconButton(
                           onPressed: () async {
-                            if (GetAllSongs.player.hasNext) {
-                              await GetAllSongs.player.seekToNext();
-                              await GetAllSongs.player.play();
-                            } else {
-                              GetAllSongs.player.play();
-                            }
-                          },
+                            fullScreencontroller.playnextbutton();
+                           },
                           icon: const Icon(Icons.skip_next),
                           iconSize: 50,
                         ),
@@ -263,7 +246,7 @@ class _FullScreenState extends State<FullScreen> {
   }
 
   Stream<DurationState> get _durationStateStream =>
-      Rx.combineLatest2<Duration, Duration?, DurationState>(
+   rx.   Rx.combineLatest2<Duration, Duration?, DurationState>(
           GetAllSongs.player.positionStream,
           GetAllSongs.player.durationStream,
           (position, duration) => DurationState(

@@ -21,14 +21,16 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
               end: Alignment.bottomRight,
               colors: appcolor)),
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
           centerTitle: true,
           title: const Text(
             'About',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black),
           ),
           automaticallyImplyLeading: false,
           leading: IconButton(
@@ -53,8 +55,8 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
                      Tab(text: 'app'),
                       Tab(text: 'Developer',),
                       ],
-                      ),
-                      ),
+                    ), 
+                  ),
              CustomCard(
               color: const Color.fromARGB(255, 235, 239, 230),
               elevation: 15,
