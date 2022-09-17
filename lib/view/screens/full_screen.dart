@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player/colors/colors.dart';
-import 'package:music_player/controller/fullscreen.dart';
+import 'package:music_player/controller/fullscreen_controller.dart';
 import 'package:music_player/view/favourite/favourite_button.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';

@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:marquee_text/marquee_text.dart';
+import 'package:music_player/controller/miniplayer_controller.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class MiniPlayer extends StatefulWidget {
-  const MiniPlayer({Key? key}) : super(key: key);
+class MiniPlayer extends GetView<MiniPlayerController> {
+   MiniPlayer({Key? key}) : super(key: key);
 
-  @override
-  State<MiniPlayer> createState() => _MiniPlayerState();
-}
-
-class _MiniPlayerState extends State<MiniPlayer> {
-
-  @override
-  void initState() {
-    GetAllSongs.player.currentIndexStream.listen((index) {
-      if (index != null && mounted) {
-        setState(() {});
-      }
-    });
-    super.initState();
-  }
+  final miniController =Get.put(MiniPlayerController());
+      
+ 
+  // @override
+  // void initState() {
+  //   GetAllSongs.player.currentIndexStream.listen((index) {
+  //     if (index != null && mounted) {
+  //       setState(() {});
+  //     }
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +30,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
       ),
       duration: const Duration(seconds: 2),
       child: ListTile(
-        onTap: () =>
-         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                FullScreen(playersong: GetAllSongs.playingSong))),
+        onTap: () => Get.to(FullScreen(playersong: GetAllSongs.playingSong)),
         leading: QueryArtworkWidget(
             keepOldArtwork: true,
             artworkBorder: BorderRadius.circular(5),
@@ -48,8 +44,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
           style: const TextStyle(color: Colors.amber),
           speed: 15,
           text: TextSpan(
-              text: GetAllSongs.playingSong[GetAllSongs.player.currentIndex!]
-                  .title),
+              text: GetAllSongs
+                  .playingSong[GetAllSongs.player.currentIndex!].title),
         ),
         trailing: IconButton(
           icon: StreamBuilder<bool>(
@@ -72,13 +68,14 @@ class _MiniPlayerState extends State<MiniPlayer> {
             }),
           ),
           onPressed: () async {
-            if (GetAllSongs.player.playing) {
-              await GetAllSongs.player.pause();
-              setState(() {});
-            } else {
-              await GetAllSongs.player.play();
-              setState(() {});
-            }
+            // if (GetAllSongs.player.playing) {
+            //   await GetAllSongs.player.pause();
+            //   setState(() {});
+            // } else {
+            //   await GetAllSongs.player.play();
+            //   setState(() {});
+            // }
+            miniController.miniplayerplaybutton();
           },
         ),
       ),

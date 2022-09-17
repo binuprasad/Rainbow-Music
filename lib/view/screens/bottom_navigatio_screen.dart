@@ -38,7 +38,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               children: [
                 (GetAllSongs.player.playing) ||
                         (GetAllSongs.player.currentIndex != null)
-                    ? const MiniPlayer()
+                    ?  MiniPlayer()
                     : const SizedBox(),
                 BottomNavigationBar(
                     type: BottomNavigationBarType.fixed,

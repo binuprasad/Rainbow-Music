@@ -13,20 +13,7 @@ class HomeScreen extends StatelessWidget {
    HomeScreen({Key? key}) : super(key: key);
   static List<SongModel> songs = [];
   final homeController = Get.put(HomeScreenController());
-
- 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   requestPermision();
-  // }
-
-  // void requestPermision() async {
-  //   await Permission.storage.request();
-  //   setState(() {});
-  // }
-
-  
+  final favorite= FavouriteDB();
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +81,9 @@ class HomeScreen extends StatelessWidget {
                           GetAllSongs.createSongList(item.data!),
                           initialIndex: index);
                       GetAllSongs.player.play();
+                      Get.to(FullScreen(playersong: item.data!));
                       
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FullScreen(
-                                    playersong: item.data!,
-                                  )));
+                     
                     },
                     leading: QueryArtworkWidget(
                       id: item.data![index].id,

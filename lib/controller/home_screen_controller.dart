@@ -40,13 +40,15 @@ class HomeScreenController extends GetxController {
   //   GetAllSongs.songscopy = item.data;
   // }
 
-  homeListview(item, index) {
-    GetAllSongs.player.setAudioSource(GetAllSongs.createSongList(item.data),
-        initialIndex: index);
-    GetAllSongs.player.play();
-    GetAllSongs.player.play();
+  // homeListview(item, index) {
+  //   GetAllSongs.player.setAudioSource(GetAllSongs.createSongList(item.data),
+  //       initialIndex: index);
+  //   GetAllSongs.player.play();
+  //   GetAllSongs.player.play();
     
-    Get.to(FullScreen(playersong: item.data));
-    update();
-  }
+  //   Get.to(FullScreen(playersong: item.data));
+  //   update();
+  // }
+
+  
 }

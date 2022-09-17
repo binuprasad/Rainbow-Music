@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/colors/colors.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class FavouriteScreen extends StatefulWidget {
+class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({Key? key}) : super(key: key);
 
-  @override
-  State<FavouriteScreen> createState() => _FavouriteScreenState();
-}
-
-class _FavouriteScreenState extends State<FavouriteScreen> {
+ 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -23,7 +20,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Colors.yellow, Colors.white])),
+                  colors: appcolor)),
           child: Scaffold(
             backgroundColor: Colors.transparent,
               appBar: AppBar(
@@ -71,7 +68,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                         FavouriteDB.favoriteSongs
                                             .notifyListeners();
                                         FavouriteDB.delete(favorData[index].id);
-                                        setState(() {});
+                                        //setstate removed
                                         const snackbar = SnackBar(
                                             backgroundColor: Colors.black,
                                             content: Text(
@@ -102,7 +99,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                   onTap: () {
                                     FavouriteDB.favoriteSongs.notifyListeners();
                                     List<SongModel> newlist = [...favorData];
-                                    setState(() {});
+                                    //setstate removed
                                     GetAllSongs.player.stop();
                                     GetAllSongs.player.setAudioSource(
                                         GetAllSongs.createSongList(newlist),
