@@ -1,44 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/controller/search_screen_controller.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 
-import 'package:music_player/view/screens/home_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class SearchSong extends StatefulWidget {
-  const SearchSong({Key? key}) : super(key: key);
+class SearchSong extends GetView<Searchcontroller> {
+   SearchSong({Key? key}) : super(key: key);
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _HomePageState createState() => _HomePageState();
-}
+  final searchcontroller = Get.lazyPut(() => Searchcontroller());
 
-class _HomePageState extends State<SearchSong> {
-  final List<SongModel> _allsongs = HomeScreen.songs;
 
-  List<SongModel> _foundSongs = [];
-  @override
-  initState() {
-    _foundSongs = _allsongs;
-    super.initState();
-  }
-
-  void _runFilter(String enteredKeyword) {
-    List<SongModel> results = [];
-    if (enteredKeyword.isEmpty) {
-      results = _allsongs;
-    } else {
-      results = _allsongs
-          .where((name) =>
-              name.title.toLowerCase().contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-
-    setState(() {
-      _foundSongs = results;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +32,7 @@ class _HomePageState extends State<SearchSong> {
             elevation: 0,
             leading: IconButton(
                 onPressed: () {
-                  setState(() {});
+                 
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
@@ -77,8 +51,8 @@ class _HomePageState extends State<SearchSong> {
                 const SizedBox(
                   height: 7.0,
                 ),
-                TextField(
-                    onChanged: (value) => _runFilter(value),
+                GetBuilder<Searchcontroller>(builder: (controller) => TextField(
+                    onChanged: (value) => controller.runFilter(value),
                     decoration: InputDecoration(
                       hintText: "Search your song",
                       fillColor: Colors.white,
@@ -95,16 +69,16 @@ class _HomePageState extends State<SearchSong> {
                           width: 1.0,
                         ),
                       ),
-                    )),
+                    ),),),
                 const SizedBox(
                   height: 7,
                 ),
-                Expanded(
-                  child: _foundSongs.isNotEmpty
+              GetBuilder <Searchcontroller>(builder: (controller) =>    Expanded(
+                  child: controller.foundSongs.isNotEmpty
                       ? ListView.builder(
-                          itemCount: _foundSongs.length,
+                          itemCount: controller.foundSongs.length,
                           itemBuilder: (context, index) => Card(
-                            key: ValueKey(_foundSongs[index].id),
+                            key: ValueKey(controller.foundSongs[index].id),
                             color:  const Color.fromARGB(255, 226, 211, 73),
                             
                             margin: const EdgeInsets.symmetric(vertical: 7),
@@ -112,22 +86,22 @@ class _HomePageState extends State<SearchSong> {
                               onTap: () {
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 GetAllSongs.player.setAudioSource(
-                                    GetAllSongs.createSongList(_foundSongs),
+                                    GetAllSongs.createSongList(controller.foundSongs),
                                     initialIndex: index);
                                 GetAllSongs.player.play();
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        FullScreen(playersong: _foundSongs),
+                                        FullScreen(playersong: controller.foundSongs),
                                   ),
                                 );
                               },
                               leading: QueryArtworkWidget(
-                                id: _foundSongs[index].id,
+                                id: controller.foundSongs[index].id,
                                 type: ArtworkType.AUDIO,
                                 nullArtworkWidget: const Icon(Icons.music_note),
                               ),
-                              title: Text(_foundSongs[index].title),
+                              title: Text(controller.foundSongs[index].title),
                             ),
                           ),
                         )
@@ -135,7 +109,7 @@ class _HomePageState extends State<SearchSong> {
                           'No results found',
                           style: TextStyle(fontSize: 24),
                         ),
-                ),
+                ),),
               ],
             ),
           ),

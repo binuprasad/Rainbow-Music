@@ -20,7 +20,7 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final _pages = [
      HomeScreen(),
-    const SearchSong(),
+     SearchSong(),
      PlaylistScreen(),
      FavouriteScreen(),
   ];
@@ -50,7 +50,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       if (newIndex == 1) {
                         setState(() {});
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SearchSong()));
+                            builder: (context) =>  SearchSong()));
                       } else {
                         setState(() {
                           baseindex = newIndex;
