@@ -14,7 +14,7 @@ class SplashscreenController extends GetxController{
    Future<void> gotologin() async {
     Timer(
         const Duration(seconds: 3),
-        (() => Get.off(const BottomNavigationScreen())
+        (() => Get.off( BottomNavigationScreen())
             ),
             );
         }

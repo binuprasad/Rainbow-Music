@@ -2,63 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_player/controller/bottomnavigation_controller.dart';
 import 'package:music_player/controller/favourite_screen%20_controller.dart';
-import 'package:music_player/db/favourite_db.dart';
-import 'package:music_player/view/favourite/favourite_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
-import 'package:music_player/view/screens/home_screen.dart';
 import 'package:music_player/view/screens/miniscreen.dart';
-import 'package:music_player/view/playlist/playlist_screen.dart';
 import 'package:music_player/view/screens/search_screen.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
-int baseindex = 0;
+class BottomNavigationScreen extends GetView<BottomnavigationController> {
+   BottomNavigationScreen({
+    Key? key,
+  }) : super(key: key);
 
-class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({Key? key,}) : super(key: key);
 
-  @override
-  State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
-}
+  final favcontroller = Get.put(FavouriteScreenController());
+  final bottomnavcontroller = Get.put(BottomnavigationController());
 
-class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-final favcontroller = Get.put(FavouriteScreenController());
-final bottomnavcontroller = Get.put(BottomnavigationController());
-  final _pages = [
-     HomeScreen(),
-     SearchSong(),
-     PlaylistScreen(),
-     FavouriteScreen(),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[baseindex],
-      bottomNavigationBar:GetBuilder<BottomnavigationController>(builder: (controller) => SizedBox(
+        body: Obx(() => bottomnavcontroller.pages[bottomnavcontroller.baseindex.value]),
+        bottomNavigationBar: GetBuilder<BottomnavigationController>(
+          builder: (controller) => SizedBox(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: [
                 (GetAllSongs.player.playing) ||
                         (GetAllSongs.player.currentIndex != null)
-                    ?  MiniPlayer()
+                    ? MiniPlayer()
                     : const SizedBox(),
-                BottomNavigationBar(
+                Obx(
+                  () => BottomNavigationBar(
                     type: BottomNavigationBarType.fixed,
                     backgroundColor: Colors.black,
-                    selectedItemColor:     Colors.yellow,
+                    selectedItemColor: Colors.yellow,
                     unselectedItemColor: Colors.white,
-                    currentIndex: baseindex,
+                    currentIndex: bottomnavcontroller.baseindex.value,
                     onTap: (newIndex) {
                       if (newIndex == 1) {
-                        setState(() {});
+                      
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>  SearchSong()));
+                            builder: (context) => SearchSong()));
                       } else {
-                        setState(() {
-                          baseindex = newIndex;
+                     
+                          bottomnavcontroller.baseindex.value = newIndex;
 
                           // FavouriteDB.favoriteSongs.notifyListeners();
-                        });
+                      
                       }
                     },
                     items: const [
@@ -73,10 +61,12 @@ final bottomnavcontroller = Get.put(BottomnavigationController());
                           icon: Icon(Icons.playlist_add), label: 'Playlist'),
                       BottomNavigationBarItem(
                           icon: Icon(Icons.favorite), label: 'Favourite'),
-                    ]),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),)
-    );
+          ),
+        ));
   }
 }
