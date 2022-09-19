@@ -8,8 +8,7 @@ class FullScreencontroller extends GetxController {
   void onInit() {
     GetAllSongs.player.currentIndexStream.listen((index) {
       if (index != null) {
-        currentIndexes.value=index;
-
+        currentIndexes.value = index;
         GetAllSongs.currentIndex = index;
       }
     });
@@ -22,25 +21,37 @@ class FullScreencontroller extends GetxController {
       update();
     } else {
       await GetAllSongs.player.play();
-      update(); 
+      update();
     }
   }
 
-  previousbutton()async{
+  previousbutton() async {
     if (GetAllSongs.player.hasPrevious) {
-                              await GetAllSongs.player.seekToPrevious();
-                              await GetAllSongs.player.play();
-                            } else {
-                              await GetAllSongs.player.play();
-                            }
+      await GetAllSongs.player.seekToPrevious();
+      await GetAllSongs.player.play();
+    } else {
+      await GetAllSongs.player.play();
+    }
   }
-  playnextbutton()async{
-     if (GetAllSongs.player.hasNext) {
-                              await GetAllSongs.player.seekToNext();
-                              await GetAllSongs.player.play();
-                            } else {
-                              GetAllSongs.player.play();
-                            }
-                        
+
+  playnextbutton() async {
+    if (GetAllSongs.player.hasNext) {
+      await GetAllSongs.player.seekToNext();
+      await GetAllSongs.player.play();
+    } else {
+      GetAllSongs.player.play();
+    }
   }
+
+  void changeInSeeconds(int second) {
+    Duration duration = Duration(seconds: second);
+    GetAllSongs.player.seek(duration);
+  }
+
+  goback(){
+    Get.back();
+    update();
+  }
+
+
 }

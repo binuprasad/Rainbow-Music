@@ -1,25 +1,14 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_player/view/screens/bottom_navigatio_screen.dart';
+import 'package:music_player/controller/splash_screen_controller.dart';
 
-class SpalshScreen extends StatefulWidget {
-  const SpalshScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SpalshScreen> createState() => _SpalshScreenState();
-}
-
-class _SpalshScreenState extends State<SpalshScreen> {
-  @override
-  void initState() {
-    gotologin(context);
-    super.initState();
-    }
-
-  @override
+class SpalshScreen extends GetView<SplashscreenController> {
+   const SpalshScreen({Key? key}) : super(key: key);
+    @override
   Widget build(BuildContext context) {
+ Get.put(SplashscreenController());
+
+
     return const Scaffold(
       backgroundColor: Colors.black,
         body: Center(
@@ -28,11 +17,4 @@ class _SpalshScreenState extends State<SpalshScreen> {
            fit: BoxFit.fill,),)
     );
   }
-
-  Future<void> gotologin(BuildContext context) async {
-    Timer(
-        const Duration(seconds: 3),
-        (() => Get.off(const BottomNavigationScreen())
-            ));
-        }
-      }
+}

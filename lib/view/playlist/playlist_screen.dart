@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/controller/playlist_screen_controller.dart';
 import 'package:music_player/model/model.dart';
-import 'package:music_player/db/playlist_db.dart';
 import 'package:music_player/view/playlist/playlist_view.dart';
 
-class PlaylistScreen extends StatefulWidget {
-  const PlaylistScreen({Key? key}) : super(key: key);
+class PlaylistScreen extends StatelessWidget {
+  PlaylistScreen({Key? key}) : super(key: key);
 
-  @override
-  State<PlaylistScreen> createState() => _PlaylistScreenState();
-}
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final playlistcontroller = Get.put(PlaylistscreenController());
 
-final nameController = TextEditingController();
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-class _PlaylistScreenState extends State<PlaylistScreen> {
- 
   @override
   Widget build(BuildContext context) {
-       FocusManager.instance.primaryFocus?.unfocus();
+    FocusManager.instance.primaryFocus?.unfocus();
     return ValueListenableBuilder(
       valueListenable: Hive.box<MusicModel>('playlist_db').listenable(),
       builder:
           (BuildContext context, Box<MusicModel> musicList, Widget? child) {
         return Container(
-          decoration:const BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -58,92 +53,70 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       itemCount: musicList.length,
                       itemBuilder: (BuildContext context, int index) {
                         final data = musicList.values.toList()[index];
-                        return ValueListenableBuilder(
-                          valueListenable:
-                              Hive.box<MusicModel>('playlist_db').listenable(),
-                          builder: (BuildContext context,
-                              Box<MusicModel> musicList, Widget? child) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => PlaylistView(
-                                        playlist: data, folderindex: index)));
-                              },
-                              child: Container(
-                                color: Colors.black,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                      ),
-                                      width: double.infinity,
-                                      height: 130,
-                                      child: Image.asset(
-                                        'assets/headphone.webp',
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 4,
-                                            child: Center(
-                                              child: Text(
-                                                data.name,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    color: Colors.white,fontWeight: FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                              flex: 1,
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return AlertDialog(
-                                                            title: const Text(
-                                                                'Delete playlist'),
-                                                            actions: <Widget>[
-                                                              TextButton(
-                                                                  onPressed: () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  },
-                                                                  child:
-                                                                      const Text('No')),
-                                                              TextButton(
-                                                                  onPressed: () {
-                                                                    musicList
-                                                                        .deleteAt(
-                                                                            index);
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  },
-                                                                  child: const Text(
-                                                                      'Yes'))
-                                                            ],
-                                                          );
-                                                        });
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.delete,
-                                                    color: Colors.white,
-                                                  )))
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
+
+                        return GestureDetector(
+                          onTap: () {
+                            Get.to(PlaylistView(
+                                playlist: data, folderindex: index));
                           },
+                          child: Container(
+                            color: Colors.black,
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  width: double.infinity,
+                                  height: 130,
+                                  child: Image.asset(
+                                    'assets/headphone.webp',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 4,
+                                        child: Center(
+                                          child: Text(
+                                            data.name,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                          flex: 1,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                Get.defaultDialog(
+                                                  title: 'Delete playlist?',
+                                                  content: const Text(
+                                                      'Are you sure to delete the playlist'),
+                                                  onCancel: () {
+                                                    Get.back();
+                                                  },
+                                                  onConfirm: () {
+                                                    musicList.deleteAt(index);
+
+                                                    Get.back();
+                                                  },
+                                                );
+                                              },
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: Colors.white,
+                                              )))
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -151,6 +124,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black,
               onPressed: () {
+                // Get.defaultDialog(
+                //   content: Actions(actions: [], child: child)
+                // );
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -179,16 +155,20 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                 Form(
                                   key: _formKey,
                                   child: TextFormField(
-                                      controller: nameController,
+                                      controller:
+                                          playlistcontroller.nameController,
                                       decoration: const InputDecoration(
                                           border: InputBorder.none,
                                           hintText: ' Playlist Name'),
                                       validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Please enter playlist name";
-                                        } else {
-                                          return null;
-                                        }
+                                        playlistcontroller
+                                            .validationCondition(value);
+
+                                        // if (value == null || value.isEmpty) {
+                                        //   return "Please enter playlist name";
+                                        // } else {
+                                        //   return null;
+                                        // }
                                       }),
                                 ),
                                 const SizedBox(
@@ -204,7 +184,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.black),
                                             onPressed: () {
-                                              Navigator.of(context).pop();
+                                              Get.back();
                                             },
                                             child: const Text(
                                               'Cancel',
@@ -213,19 +193,19 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                         width: 100.0,
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                backgroundColor:  Colors.black
-                                                    ),
+                                                backgroundColor: Colors.black),
                                             onPressed: () {
                                               if (_formKey.currentState!
                                                   .validate()) {
-                                                whenButtonClicked();
-                                                Navigator.pop(context);
+                                                playlistcontroller
+                                                    .whenButtonClicked();
+                                                Get.back();
                                               }
                                             },
                                             child: const Text(
                                               'Save',
-                                              style:
-                                                  TextStyle(color: Colors.white),
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             ))),
                                   ],
                                 ),
@@ -238,25 +218,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               },
               child: const Icon(
                 Icons.playlist_add,
-              color: Colors.yellowAccent, ),
+                color: Colors.yellowAccent,
+              ),
             ),
           ),
         );
       },
     );
-  }
-
-  Future<void> whenButtonClicked() async {
-    final name = nameController.text.trim();
-    if (name.isEmpty) {
-      return;
-    } else {
-      final music = MusicModel(
-        songIds: [],
-        name: name,
-      );
-      playlistAdd(music);
-      nameController.clear();
-    }
   }
 }

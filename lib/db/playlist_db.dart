@@ -31,5 +31,5 @@ Future<void> appReset() async {
   await favDB.clear();
   await playlistDB.clear();
   FavouriteDB.favoriteSongs.value.clear();
- Get.offAll(const SpalshScreen());
+ Get.offAll( SpalshScreen());
 }

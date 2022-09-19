@@ -4,6 +4,7 @@ import 'package:music_player/db/playlist_db.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsController extends GetxController {
+
   resetdialogue() {
     Get.defaultDialog(
         title: 'Reset App',
@@ -15,7 +16,7 @@ class SettingsController extends GetxController {
             child: const Text('NO')),
         confirm: TextButton(
             onPressed: () {
-              appReset();
+            appReset();
             },
             child: const Text('Yes')));
   }

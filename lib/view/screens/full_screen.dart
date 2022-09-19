@@ -5,7 +5,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/fullscreen_controller.dart';
 import 'package:music_player/view/favourite/favourite_button.dart';
-import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart'as rx;
@@ -14,24 +13,9 @@ class FullScreen extends StatelessWidget {
    FullScreen({Key? key, required this.playersong}) : super(key: key);
   final List<SongModel> playersong;
 
+final fullScreencontroller = Get.put(FullScreencontroller());
 
-  final fullScreencontroller = Get.put(FullScreencontroller());
-
-
-  // @override
-  // void initState() { 
-  //   super.initState();
-  //   GetAllSongs.player.currentIndexStream.listen((index) {
-  //     if (index != null && mounted) {
-  //       setState(() {
-  //         currentIndexes = index;
-  //       });
-  //       GetAllSongs.currentIndex = index;
-  //     }
-  //   });
-  // }
-
-  @override
+   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
         final width= MediaQuery.of(context).size.width;
@@ -55,8 +39,7 @@ class FullScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           leading: IconButton(
               onPressed: () {
-                Get.back();
-                FavouriteDB.favoriteSongs.notifyListeners();
+               fullScreencontroller.goback();
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -240,10 +223,7 @@ class FullScreen extends StatelessWidget {
     );
   }
 
-  void changeInSeeconds(int second) {
-    Duration duration = Duration(seconds: second);
-    GetAllSongs.player.seek(duration);
-  }
+ 
 
   Stream<DurationState> get _durationStateStream =>
    rx.   Rx.combineLatest2<Duration, Duration?, DurationState>(

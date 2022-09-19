@@ -21,8 +21,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final _pages = [
      HomeScreen(),
     const SearchSong(),
-    const PlaylistScreen(),
-    const FavouriteScreen(),
+     PlaylistScreen(),
+     FavouriteScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         setState(() {
                           baseindex = newIndex;
 
-                          FavouriteDB.favoriteSongs.notifyListeners();
+                          // FavouriteDB.favoriteSongs.notifyListeners();
                         });
                       }
                     },
