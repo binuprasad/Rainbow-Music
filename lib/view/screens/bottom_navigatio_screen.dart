@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:music_player/controller/bottomnavigation_controller.dart';
+import 'package:music_player/controller/favourite_screen%20_controller.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/view/favourite/favourite_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
@@ -18,6 +21,8 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+final favcontroller = Get.put(FavouriteScreenController());
+final bottomnavcontroller = Get.put(BottomnavigationController());
   final _pages = [
      HomeScreen(),
      SearchSong(),
@@ -28,10 +33,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[baseindex],
-      bottomNavigationBar: ValueListenableBuilder(
-        valueListenable: FavouriteDB.favoriteSongs,
-        builder: (BuildContext context, List<SongModel> music, Widget? child) {
-          return SizedBox(
+      bottomNavigationBar:GetBuilder<BottomnavigationController>(builder: (controller) => SizedBox(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
@@ -74,9 +76,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                     ]),
               ],
             ),
-          );
-        },
-      ),
+          ),)
     );
   }
 }

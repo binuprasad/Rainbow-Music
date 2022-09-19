@@ -1,15 +1,17 @@
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:music_player/controller/favourite_screen%20_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavouriteDB {
   static bool isInitialized = false;
   static final favDB = Hive.box<int>('favourite_db');
-  static ValueNotifier<List<SongModel>> favoriteSongs = ValueNotifier([]);
-  static initialise(List<SongModel> songs) {
+  final favcontroller = Get.put(FavouriteScreenController());
+   initialise(List<SongModel> songs) {
     for (SongModel song in songs) {
       if (isfavor(song)) {
-        favoriteSongs.value.add(song);
+       favcontroller. favoriteSongs.add(song);
       }
     }
     isInitialized = true;
@@ -22,13 +24,12 @@ class FavouriteDB {
     return false;
   }
 
-  static add(SongModel song) async {
+   add(SongModel song) async {
     favDB.add(song.id);
-    favoriteSongs.value.add(song);
-    FavouriteDB.favoriteSongs.notifyListeners();
+ favcontroller.   favoriteSongs.add(song);
   }
 
-  static delete(int id) async {
+   delete(int id) async {
     int deletekey = 0;
     if (!favDB.values.contains(id)) {
       return;
@@ -40,6 +41,6 @@ class FavouriteDB {
       }
     });
     favDB.delete(deletekey);
-    favoriteSongs.value.removeWhere((song) => song.id == id);
+   favcontroller .favoriteSongs.removeWhere((song) => song.id == id);
   }
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music_player/controller/favourite_screen%20_controller.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/model/model.dart';
 import 'package:music_player/view/screens/splash_screen.dart';
 
 ValueNotifier<List<MusicModel>> playlistnotifier = ValueNotifier([]);
+
 Future<void> playlistAdd(MusicModel value) async {
   final playlistDB = Hive.box<MusicModel>('playlist_db');
   await playlistDB.add(value);
@@ -30,6 +32,6 @@ Future<void> appReset() async {
   final favDB = Hive.box<int>('favourite_db');
   await favDB.clear();
   await playlistDB.clear();
-  FavouriteDB.favoriteSongs.value.clear();
- Get.offAll( SpalshScreen());
+FavouriteScreenController().favoriteSongs.clear();
+ Get.offAll( const SpalshScreen());
 }

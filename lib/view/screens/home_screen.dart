@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
             }
             HomeScreen.songs = item.data!;
             if (!FavouriteDB.isInitialized) {
-              FavouriteDB.initialise(item.data!);
+              FavouriteDB().initialise(item.data!);
             }
             GetAllSongs.songscopy = item.data!;
 
