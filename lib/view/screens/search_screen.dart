@@ -32,8 +32,7 @@ class SearchSong extends GetView<Searchcontroller> {
             elevation: 0,
             leading: IconButton(
                 onPressed: () {
-                 
-                  Navigator.of(context).pop();
+                 Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back,
@@ -89,12 +88,8 @@ class SearchSong extends GetView<Searchcontroller> {
                                     GetAllSongs.createSongList(controller.foundSongs),
                                     initialIndex: index);
                                 GetAllSongs.player.play();
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        FullScreen(playersong: controller.foundSongs),
-                                  ),
-                                );
+                                Get.to(FullScreen(playersong: controller.foundSongs));
+                               
                               },
                               leading: QueryArtworkWidget(
                                 id: controller.foundSongs[index].id,

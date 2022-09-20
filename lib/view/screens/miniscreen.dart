@@ -7,24 +7,14 @@ import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MiniPlayer extends GetView<MiniPlayerController> {
-   MiniPlayer({Key? key}) : super(key: key);
+  MiniPlayer({Key? key}) : super(key: key);
 
-  final miniController =Get.put(MiniPlayerController());
-      
- 
-  // @override
-  // void initState() {
-  //   GetAllSongs.player.currentIndexStream.listen((index) {
-  //     if (index != null && mounted) {
-  //       setState(() {});
-  //     }
-  //   });
-  //   super.initState();
-  // }
+  final miniController = Get.put(MiniPlayerController());
+
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
+    return GetBuilder<MiniPlayerController>(builder: (controller) => AnimatedContainer(
       decoration: const BoxDecoration(
         color: Colors.black,
       ),
@@ -51,8 +41,11 @@ class MiniPlayer extends GetView<MiniPlayerController> {
           icon: StreamBuilder<bool>(
             stream: GetAllSongs.player.playingStream,
             builder: ((context, snapshot) {
+             
               bool? currentPlayingStage = snapshot.data;
+
               if (currentPlayingStage != null && currentPlayingStage) {
+                
                 return const Icon(
                   Icons.pause,
                   size: 35,
@@ -68,17 +61,10 @@ class MiniPlayer extends GetView<MiniPlayerController> {
             }),
           ),
           onPressed: () async {
-            // if (GetAllSongs.player.playing) {
-            //   await GetAllSongs.player.pause();
-            //   setState(() {});
-            // } else {
-            //   await GetAllSongs.player.play();
-            //   setState(() {});
-            // }
             miniController.miniplayerplaybutton();
           },
         ),
       ),
-    );
+    ),);
   }
 }

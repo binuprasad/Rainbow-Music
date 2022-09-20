@@ -39,13 +39,11 @@ class BottomNavigationScreen extends GetView<BottomnavigationController> {
                     onTap: (newIndex) {
                       if (newIndex == 1) {
                       
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SearchSong()));
+                       Get.to(SearchSong());
                       } else {
                      
                           bottomnavcontroller.baseindex.value = newIndex;
 
-                          // FavouriteDB.favoriteSongs.notifyListeners();
                       
                       }
                     },

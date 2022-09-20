@@ -7,25 +7,24 @@ import 'package:music_player/controller/fullscreen_controller.dart';
 import 'package:music_player/view/favourite/favourite_button.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:rxdart/rxdart.dart'as rx;
 
 class FullScreen extends StatelessWidget {
-   FullScreen({Key? key, required this.playersong}) : super(key: key);
+  FullScreen({Key? key, required this.playersong}) : super(key: key);
   final List<SongModel> playersong;
 
-final fullScreencontroller = Get.put(FullScreencontroller());
+  final fullScreencontroller = Get.put(FullScreencontroller());
 
-   @override
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-        final width= MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
 
     return Container(
-      decoration:const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: appcolor)),
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: appcolor)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -39,7 +38,7 @@ final fullScreencontroller = Get.put(FullScreencontroller());
           automaticallyImplyLeading: false,
           leading: IconButton(
               onPressed: () {
-               fullScreencontroller.goback();
+                fullScreencontroller.goback();
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -54,35 +53,40 @@ final fullScreencontroller = Get.put(FullScreencontroller());
               children: [
                 Column(
                   children: [
-                   Obx(() =>  QueryArtworkWidget(
-                      artworkHeight: height/2.3,
-                      artworkWidth:width,
-                      artworkFit: BoxFit.fill,
-                      keepOldArtwork: true,
-                      id: playersong[fullScreencontroller. currentIndexes.value].id,
-                      type: ArtworkType.AUDIO,
-                      nullArtworkWidget:  SizedBox(
-                    
-                        height: height/2.5,
-                        width: width,
-                        child: Icon(
-                          Icons.music_note,
-                          size: height/4,
+                    Obx(
+                      () => QueryArtworkWidget(
+                        artworkHeight: height / 2.3,
+                        artworkWidth: width,
+                        artworkFit: BoxFit.fill,
+                        keepOldArtwork: true,
+                        id: playersong[
+                                fullScreencontroller.currentIndexes.value]
+                            .id,
+                        type: ArtworkType.AUDIO,
+                        nullArtworkWidget: SizedBox(
+                          height: height / 2.5,
+                          width: width,
+                          child: Icon(
+                            Icons.music_note,
+                            size: height / 4,
+                          ),
                         ),
                       ),
-                    ),),
-
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top:10.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        playersong[fullScreencontroller. currentIndexes.value].displayNameWOExt,
+                        playersong[fullScreencontroller.currentIndexes.value]
+                            .displayNameWOExt,
                         maxLines: 1,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                     Text(
-                      playersong[fullScreencontroller. currentIndexes.value].artist.toString(),
+                      playersong[fullScreencontroller.currentIndexes.value]
+                          .artist
+                          .toString(),
                       maxLines: 1,
                     )
                   ],
@@ -93,7 +97,7 @@ final fullScreencontroller = Get.put(FullScreencontroller());
                 Column(
                   children: [
                     StreamBuilder<DurationState>(
-                        stream: _durationStateStream,
+                        stream:fullScreencontroller.  durationStateStream,
                         builder: (context, snapshot) {
                           final durationState = snapshot.data;
                           final progress =
@@ -145,25 +149,27 @@ final fullScreencontroller = Get.put(FullScreencontroller());
                             },
                           ),
                         ),
-                        FavouriteBtn(song: playersong[fullScreencontroller. currentIndexes.value]),
-                       StreamBuilder<bool>(
-                    stream: GetAllSongs.player.shuffleModeEnabledStream,
-                    builder: (context, snapshot) {
-                      final shuffleModeEnabled = snapshot.data ?? false;
-                      return IconButton(
-                        onPressed: () {
-                          GetAllSongs.player
-                              .setShuffleModeEnabled(!shuffleModeEnabled);
-                        },
-                        icon: shuffleModeEnabled
-                            ? const Icon(Icons.shuffle_rounded)
-                            : const Icon(
-                                Icons.shuffle_rounded,
-                                color: Colors.grey,
-                              ),
-                      );
-                    },
-                  ),
+                        FavouriteBtn(
+                            song: playersong[
+                                fullScreencontroller.currentIndexes.value]),
+                        StreamBuilder<bool>(
+                          stream: GetAllSongs.player.shuffleModeEnabledStream,
+                          builder: (context, snapshot) {
+                            final shuffleModeEnabled = snapshot.data ?? false;
+                            return IconButton(
+                              onPressed: () {
+                                GetAllSongs.player
+                                    .setShuffleModeEnabled(!shuffleModeEnabled);
+                              },
+                              icon: shuffleModeEnabled
+                                  ? const Icon(Icons.shuffle_rounded)
+                                  : const Icon(
+                                      Icons.shuffle_rounded,
+                                      color: Colors.grey,
+                                    ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                     Row(
@@ -179,27 +185,29 @@ final fullScreencontroller = Get.put(FullScreencontroller());
                           iconSize: 50,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 29,right: 25 ),
+                          padding: const EdgeInsets.only(bottom: 29, right: 25),
                           child: IconButton(
                             onPressed: () async {
                               fullScreencontroller.playButton();
                             },
                             icon: StreamBuilder(
                               stream: GetAllSongs.player.playingStream,
-                              builder:
-                                  (BuildContext context, AsyncSnapshot snapshot) {
-                                bool? playingStage = snapshot.data;
-                                if (playingStage != null && playingStage) {
-                                  return const Icon(
-                                    Icons.pause,
-                                    size: 60,
-                                  );
-                                } else {
-                                  return const Icon(
-                                    Icons.play_arrow,
-                                    size: 60,
-                                  );
-                                }
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                return fullScreencontroller
+                                    .playarrowbutton(snapshot);
+                                // bool? playingStage = snapshot.data;
+                                // if (playingStage != null && playingStage) {
+                                //   return const Icon(
+                                //     Icons.pause,
+                                //     size: 60,
+                                //   );
+                                // } else {
+                                //   return const Icon(
+                                //     Icons.play_arrow,
+                                //     size: 60,
+                                //   );
+                                // }
                               },
                             ),
                           ),
@@ -207,7 +215,7 @@ final fullScreencontroller = Get.put(FullScreencontroller());
                         IconButton(
                           onPressed: () async {
                             fullScreencontroller.playnextbutton();
-                           },
+                          },
                           icon: const Icon(Icons.skip_next),
                           iconSize: 50,
                         ),
@@ -223,17 +231,15 @@ final fullScreencontroller = Get.put(FullScreencontroller());
     );
   }
 
- 
-
-  Stream<DurationState> get _durationStateStream =>
-   rx.   Rx.combineLatest2<Duration, Duration?, DurationState>(
-          GetAllSongs.player.positionStream,
-          GetAllSongs.player.durationStream,
-          (position, duration) => DurationState(
-              position: position, total: duration ?? Duration.zero));
+  // Stream<DurationState> get _durationStateStream =>
+  //     rx.Rx.combineLatest2<Duration, Duration?, DurationState>(
+  //         GetAllSongs.player.positionStream,
+  //         GetAllSongs.player.durationStream,
+  //         (position, duration) => DurationState(
+  //             position: position, total: duration ?? Duration.zero));
 }
 
-class DurationState {
-  DurationState({this.position = Duration.zero, this.total = Duration.zero});
-  Duration position, total;
-}
+// class DurationState {
+//   DurationState({this.position = Duration.zero, this.total = Duration.zero});
+//   Duration position, total;
+// }

@@ -6,6 +6,7 @@ class FavouriteButtonController extends GetxController{
  conditionfvrtbtn(song){
   if (FavouriteDB.isfavor(song)) {
                   FavouriteDB().delete(song.id);
+                  update();
                   //snackbar changed to getx
                   Get.snackbar('Song Removed', 'Song removed from favourite',
                   duration: const Duration(milliseconds: 750),

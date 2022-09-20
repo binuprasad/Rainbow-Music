@@ -162,7 +162,7 @@ class PlaylistScreen extends StatelessWidget {
                                           border: InputBorder.none,
                                           hintText: ' Playlist Name'),
                                       validator: (value) {
-                                        playlistcontroller
+                                     return  playlistcontroller
                                             .validationCondition(value);
 
                                         // if (value == null || value.isEmpty) {
