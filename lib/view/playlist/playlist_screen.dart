@@ -11,12 +11,13 @@ class PlaylistScreen extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final playlistcontroller = Get.put(PlaylistscreenController());
+  final hive =  Hive.box<MusicModel>('playlist_db');
 
   @override
   Widget build(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     return ValueListenableBuilder(
-      valueListenable: Hive.box<MusicModel>('playlist_db').listenable(),
+      valueListenable: hive.listenable(),
       builder:
           (BuildContext context, Box<MusicModel> musicList, Widget? child) {
         return Container(
@@ -50,9 +51,9 @@ class PlaylistScreen extends StatelessWidget {
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 5,
                       ),
-                      itemCount: musicList.length,
+                      itemCount: hive.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final data = musicList.values.toList()[index];
+                        final data = hive.values.toList()[index];
 
                         return GestureDetector(
                           onTap: () {
@@ -101,7 +102,7 @@ class PlaylistScreen extends StatelessWidget {
                                                     Get.back();
                                                   },
                                                   onConfirm: () {
-                                                    musicList.deleteAt(index);
+                                                    hive.deleteAt(index);
 
                                                     Get.back();
                                                   },

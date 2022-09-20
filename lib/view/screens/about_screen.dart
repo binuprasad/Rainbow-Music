@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:get/get.dart';
 import 'package:music_player/colors/colors.dart';
+import 'package:music_player/controller/about_screen_controller.dart';
 
-class AboutScreen extends StatefulWidget {
-  const AboutScreen({Key? key}) : super(key: key);
+class AboutScreen extends StatelessWidget {
+   AboutScreen({Key? key}) : super(key: key);
 
-  @override
-  State<AboutScreen> createState() => _AboutScreenState();
-}
-
-class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin {
+  final aboutcontroller =Get.put(AboutScreenController());
   @override
   Widget build(BuildContext context) {
-    TabController tabControllers =TabController(vsync: this,length: 2,);
+    // TabController tabControllers =TabController(vsync: this,length: 2,);
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -50,11 +47,12 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
               child: TabBar(
                 labelStyle: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
                 indicator: const UnderlineTabIndicator(borderSide: BorderSide.none),
-                controller: tabControllers,
-                tabs: const [
-                     Tab(text: 'app'),
-                      Tab(text: 'Developer',),
-                      ],
+                controller: aboutcontroller.controller,
+                tabs:aboutcontroller.myTap
+                //  const [
+                //      Tab(text: 'app'),
+                //       Tab(text: 'Developer',),
+                //       ],
                     ), 
                   ),
              CustomCard(
@@ -66,7 +64,7 @@ class _AboutScreenState extends State<AboutScreen>with TickerProviderStateMixin 
                 child: Padding(
                   padding:const EdgeInsets.all(8.0),
                   child: TabBarView(
-                    controller: tabControllers,
+                    controller: aboutcontroller.controller,
                     children:const [
                     Center(
                       child: Text(

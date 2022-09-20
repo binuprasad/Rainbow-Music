@@ -97,7 +97,7 @@ class SettingsScreen extends StatelessWidget {
               borderRadius: 7.0,
               child: ListTile(
                   onTap: () {
-                   Get.to(const AboutScreen());
+                   Get.to( AboutScreen());
                   },
                   leading: const Text(
                     'About',
