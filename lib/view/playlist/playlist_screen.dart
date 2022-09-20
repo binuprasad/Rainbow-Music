@@ -11,16 +11,11 @@ class PlaylistScreen extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final playlistcontroller = Get.put(PlaylistscreenController());
-  final hive =  Hive.box<MusicModel>('playlist_db');
-
+ 
   @override
   Widget build(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
-    return ValueListenableBuilder(
-      valueListenable: hive.listenable(),
-      builder:
-          (BuildContext context, Box<MusicModel> musicList, Widget? child) {
-        return Container(
+    return GetBuilder<PlaylistscreenController>(builder: (controller) =>Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -51,9 +46,9 @@ class PlaylistScreen extends StatelessWidget {
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 5,
                       ),
-                      itemCount: hive.length,
+                      itemCount:playlistcontroller. hive.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final data = hive.values.toList()[index];
+                        final data =playlistcontroller. hive.values.toList()[index];
 
                         return GestureDetector(
                           onTap: () {
@@ -102,7 +97,7 @@ class PlaylistScreen extends StatelessWidget {
                                                     Get.back();
                                                   },
                                                   onConfirm: () {
-                                                    hive.deleteAt(index);
+                                                  playlistcontroller.  hive.deleteAt(index);
 
                                                     Get.back();
                                                   },
@@ -223,8 +218,6 @@ class PlaylistScreen extends StatelessWidget {
               ),
             ),
           ),
-        );
-      },
-    );
+        ) ,);
   }
 }

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_player/db/playlist_db.dart';
 import 'package:music_player/model/model.dart';
 
 class PlaylistscreenController extends GetxController {
   final nameController = TextEditingController();
+
+   final hive =  Hive.box<MusicModel>('playlist_db');
+
 
   Future<void> whenButtonClicked() async {
     final name = nameController.text.trim();
@@ -15,7 +19,7 @@ class PlaylistscreenController extends GetxController {
         songIds: [],
         name: name,
       );
-      playlistAdd(music);
+  playlistAdd(music);
       nameController.clear();
       update();
     }
