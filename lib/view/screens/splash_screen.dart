@@ -7,9 +7,7 @@ class SpalshScreen extends GetView<SplashscreenController> {
     @override
   Widget build(BuildContext context) {
  Get.put(SplashscreenController());
-
-
-    return const Scaffold(
+   return const Scaffold(
       backgroundColor: Colors.black,
         body: Center(
            child:Image(image: 

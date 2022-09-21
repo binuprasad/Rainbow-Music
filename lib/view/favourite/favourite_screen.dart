@@ -16,7 +16,7 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: appcolor)),
+                colors: appgradientcolor)),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(

@@ -11,6 +11,7 @@ class MiniPlayerController extends GetxController {
       }
     });
     super.onInit();
+      update();
   }
 
   miniplayerplaybutton() async {
@@ -18,28 +19,28 @@ class MiniPlayerController extends GetxController {
       await GetAllSongs.player.pause();
       update();
     } else {
-      await GetAllSongs.player.play(); 
+      await GetAllSongs.player.play();
       update();
     }
     update();
   }
 
-  conditionchecking(snapshot){
-     bool? currentPlayingStage = snapshot.data.obs;
-
-                if (currentPlayingStage != null && currentPlayingStage) {
-                  return const Icon(
-                    Icons.pause,
-                    size: 35,
-                    color: Colors.white,
-                  );
-                } else {
-                  return const Icon(
-                    Icons.play_arrow,
-                    size: 35,
-                    color: Colors.white,
-                  );
-                }
-  }
-  
+  // conditionchecking(currentPlayingStage) {
+  //   if (currentPlayingStage != null && currentPlayingStage) {
+  //     update();
+  //     return const Icon(
+  //       Icons.pause,
+  //       size: 35,
+  //       color: Colors.white,
+  //     );
+  //   } else {
+  //     update();
+  //     return const Icon(
+  //       Icons.play_arrow,
+  //       size: 35,
+  //       color: Colors.white,
+  //     );
+  //   }
+    
+  // }
 }

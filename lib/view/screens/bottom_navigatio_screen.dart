@@ -7,10 +7,9 @@ import 'package:music_player/view/screens/miniscreen.dart';
 import 'package:music_player/view/screens/search_screen.dart';
 
 class BottomNavigationScreen extends GetView<BottomnavigationController> {
-   BottomNavigationScreen({
+  BottomNavigationScreen({
     Key? key,
   }) : super(key: key);
-
 
   final favcontroller = Get.put(FavouriteScreenController());
   final bottomnavcontroller = Get.put(BottomnavigationController());
@@ -18,7 +17,8 @@ class BottomNavigationScreen extends GetView<BottomnavigationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Obx(() => bottomnavcontroller.pages[bottomnavcontroller.baseindex.value]),
+        body: Obx(() =>
+            bottomnavcontroller.pages[bottomnavcontroller.baseindex.value]),
         bottomNavigationBar: GetBuilder<BottomnavigationController>(
           builder: (controller) => SizedBox(
             child: Column(
@@ -38,13 +38,9 @@ class BottomNavigationScreen extends GetView<BottomnavigationController> {
                     currentIndex: bottomnavcontroller.baseindex.value,
                     onTap: (newIndex) {
                       if (newIndex == 1) {
-                      
-                       Get.to(SearchSong());
+                        Get.to(SearchSong());
                       } else {
-                     
-                          bottomnavcontroller.baseindex.value = newIndex;
-
-                      
+                        bottomnavcontroller.baseindex.value = newIndex;
                       }
                     },
                     items: const [

@@ -7,8 +7,7 @@ import 'package:music_player/model/model.dart';
 class PlaylistscreenController extends GetxController {
   final nameController = TextEditingController();
 
-   final hive =  Hive.box<MusicModel>('playlist_db');
-
+  final hive = Hive.box<MusicModel>('playlist_db');
 
   Future<void> whenButtonClicked() async {
     final name = nameController.text.trim();
@@ -19,7 +18,7 @@ class PlaylistscreenController extends GetxController {
         songIds: [],
         name: name,
       );
-  playlistAdd(music);
+      playlistAdd(music);
       nameController.clear();
       update();
     }
@@ -33,18 +32,18 @@ class PlaylistscreenController extends GetxController {
     }
   }
 
-  // creatingplaylist(index) {
-  //   Get.defaultDialog(
-  //     title: 'Delete playlist?',
-  //     content: const Text('Are you sure to delete the playlist'),
-  //     onCancel: () {
-  //       Get.back();
-  //     },
-  //     onConfirm: () {
-  //     //  playlistnotifier.removeAt(index);
-
-  //       Get.back();
-  //        },
-  //     );
-  // }
+  deleteplaylist(index) {
+    Get.defaultDialog(
+      title: 'Delete playlist?',
+      content: const Text('Are you sure to delete the playlist'),
+      onCancel: () {
+        Get.back();
+      },
+      onConfirm: () {
+        hive.deleteAt(index);
+        update();
+        Get.back();
+      },
+    );
+  }
 }

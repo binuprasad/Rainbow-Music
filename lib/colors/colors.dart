@@ -1,3 +1,5 @@
 import 'package:flutter/material.dart';
 
-const appcolor = [Colors.yellow, Colors.white];
+const appgradientcolor = [Colors.yellow, Colors.white];
+
+const appcolor = Colors.amber;

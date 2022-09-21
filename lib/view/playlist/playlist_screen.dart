@@ -11,44 +11,47 @@ class PlaylistScreen extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final playlistcontroller = Get.put(PlaylistscreenController());
- 
+
   @override
   Widget build(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
-    return GetBuilder<PlaylistscreenController>(builder: (controller) =>Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: appcolor)),
-          child: Scaffold(
+    return GetBuilder<PlaylistscreenController>(
+      builder: (controller) => Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: appgradientcolor)),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
             backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              title: const Text(
-                'Playlist',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
+            elevation: 0,
+            centerTitle: true,
+            title: const Text(
+              'Playlist',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Hive.box<MusicModel>('playlist_db').isEmpty
-                  ? const Center(
-                      child: Text('Your Playlist is Empty'),
-                    )
-                  : GridView.builder(
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Hive.box<MusicModel>('playlist_db').isEmpty
+                ? const Center(
+                    child: Text('Your Playlist is Empty'),
+                  )
+                : GetBuilder<PlaylistscreenController>(
+                    builder: (controller) => GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 5,
                       ),
-                      itemCount:playlistcontroller. hive.length,
+                      itemCount: playlistcontroller.hive.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final data =playlistcontroller. hive.values.toList()[index];
+                        final data =
+                            playlistcontroller.hive.values.toList()[index];
 
                         return GestureDetector(
                           onTap: () {
@@ -86,27 +89,18 @@ class PlaylistScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Expanded(
-                                          flex: 1,
-                                          child: IconButton(
-                                              onPressed: () {
-                                                Get.defaultDialog(
-                                                  title: 'Delete playlist?',
-                                                  content: const Text(
-                                                      'Are you sure to delete the playlist'),
-                                                  onCancel: () {
-                                                    Get.back();
-                                                  },
-                                                  onConfirm: () {
-                                                  playlistcontroller.  hive.deleteAt(index);
-
-                                                    Get.back();
-                                                  },
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                Icons.delete,
-                                                color: Colors.white,
-                                              )))
+                                        flex: 1,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            playlistcontroller
+                                                .deleteplaylist(index);
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 )
@@ -116,108 +110,104 @@ class PlaylistScreen extends StatelessWidget {
                         );
                       },
                     ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.black,
-              onPressed: () {
-                // Get.defaultDialog(
-                //   content: Actions(actions: [], child: child)
-                // );
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Dialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        child: SizedBox(
-                          height: 250,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.black,
+            onPressed: () {
+              // Get.defaultDialog(
+              //   content: Actions(actions: [], child: child)
+              // );
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: SizedBox(
+                      height: 250,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Center(
+                              child: Text(
+                                'Enter  the Playlist Name',
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Form(
+                              key: _formKey,
+                              child: TextFormField(
+                                controller: playlistcontroller.nameController,
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: ' Playlist Name'),
+                                validator: (value) {
+                                  return playlistcontroller
+                                      .validationCondition(value);
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                const Center(
-                                  child: Text(
-                                    'Enter  the Playlist Name',
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
+                                SizedBox(
+                                  width: 100.0,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black),
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: const Text(
+                                      'Cancel',
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                      controller:
-                                          playlistcontroller.nameController,
-                                      decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: ' Playlist Name'),
-                                      validator: (value) {
-                                     return  playlistcontroller
-                                            .validationCondition(value);
-
-                                        // if (value == null || value.isEmpty) {
-                                        //   return "Please enter playlist name";
-                                        // } else {
-                                        //   return null;
-                                        // }
-                                      }),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SizedBox(
-                                        width: 100.0,
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.black),
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            child: const Text(
-                                              'Cancel',
-                                            ))),
-                                    SizedBox(
-                                        width: 100.0,
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.black),
-                                            onPressed: () {
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                playlistcontroller
-                                                    .whenButtonClicked();
-                                                Get.back();
-                                              }
-                                            },
-                                            child: const Text(
-                                              'Save',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ))),
-                                  ],
+                                SizedBox(
+                                  width: 100.0,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black),
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        playlistcontroller.whenButtonClicked();
+                                        Get.back();
+                                      }
+                                    },
+                                    child: const Text(
+                                      'Save',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
-                      );
-                    });
-              },
-              child: const Icon(
-                Icons.playlist_add,
-                color: Colors.yellowAccent,
-              ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+            child: const Icon(
+              Icons.playlist_add,
+              color: appcolor,
             ),
           ),
-        ) ,);
+        ),
+      ),
+    );
   }
 }

@@ -4,26 +4,25 @@ import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/home_screen_controller.dart';
 import 'package:music_player/view/favourite/favourite_button.dart';
 import 'package:music_player/db/favourite_db.dart';
-import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:music_player/view/screens/settings_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class HomeScreen extends StatelessWidget {
-   HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
   static List<SongModel> songs = [];
   final homeController = Get.put(HomeScreenController());
-  final favorite= FavouriteDB();
-
+  final favorite = FavouriteDB();
   @override
   Widget build(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: appcolor)),
+        gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: appgradientcolor),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -32,43 +31,43 @@ class HomeScreen extends StatelessWidget {
           elevation: 0,
           title: const Text(
             'All Songs',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  Get.to( SettingsScreen());
-                },
-                icon: const Icon(
-                  Icons.settings,
-                  color: Colors.black,
-                ))
+              onPressed: () {
+                Get.to(SettingsScreen());
+              },
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+            )
           ],
         ),
         body: FutureBuilder<List<SongModel>>(
-          future:homeController. audioquery.querySongs(
+          future: homeController.audioquery.querySongs(
               sortType: null,
               orderType: OrderType.ASC_OR_SMALLER,
               uriType: UriType.EXTERNAL,
               ignoreCase: true),
           builder: (context, item) {
-            if (item.data == null) {
+            final homeSongs = item.data;
+            if (homeSongs == null) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
-            if (item.data!.isEmpty) {
+            if (homeSongs.isEmpty) {
               return const Center(
                 child: Text('Songs not foud'),
               );
             }
-            HomeScreen.songs = item.data!;
+            HomeScreen.songs = homeSongs;
             if (!FavouriteDB.isInitialized) {
-              FavouriteDB().initialise(item.data!);
+              FavouriteDB().initialise(homeSongs);
             }
-            GetAllSongs.songscopy = item.data!;
+            GetAllSongs.songscopy = homeSongs;
 
             return ListView.separated(
                 itemBuilder: (context, index) {
@@ -77,13 +76,7 @@ class HomeScreen extends StatelessWidget {
                 separatorBuilder: (context, index) {
                   return ListTile(
                     onTap: () {
-                      GetAllSongs.player.setAudioSource(
-                          GetAllSongs.createSongList(item.data!),
-                          initialIndex: index);
-                      GetAllSongs.player.play();
-                      Get.to(FullScreen(playersong: item.data!));
-                      
-                     
+                      homeController.listtileOntap(index, homeSongs);
                     },
                     leading: QueryArtworkWidget(
                       id: item.data![index].id,

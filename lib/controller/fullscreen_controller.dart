@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:rxdart/rxdart.dart' as rx;
 
@@ -50,27 +51,42 @@ class FullScreencontroller extends GetxController {
     GetAllSongs.player.seek(duration);
   }
 
-  goback(){
+  goback() {
     Get.back();
     update();
   }
 
-  playarrowbutton(snapshot){
-     bool? playingStage = snapshot.data;
-                                if (playingStage != null && playingStage) {
-                                  return const Icon(
-                                    Icons.pause,
-                                    size: 60,
-                                  );
-                                } else {
-                                  return const Icon(
-                                    Icons.play_arrow,
-                                    size: 60,
-                                  );
-                                }
+  repeatSong(snapshot) {
+    final loopMode = snapshot.data;
+    if (LoopMode.one == loopMode) {
+      return const Icon(
+        Icons.repeat_one,
+        color: Colors.black,
+      );
+    } else {
+      return const Icon(
+        Icons.repeat,
+        color: Colors.grey,
+      );
+    }
   }
 
-   Stream<DurationState> get durationStateStream =>
+  playarrowbutton(snapshot) {
+    bool? playingStage = snapshot.data;
+    if (playingStage != null && playingStage) {
+      return const Icon(
+        Icons.pause,
+        size: 60,
+      );
+    } else {
+      return const Icon(
+        Icons.play_arrow,
+        size: 60,
+      );
+    }
+  }
+
+  Stream<DurationState> get durationStateStream =>
       rx.Rx.combineLatest2<Duration, Duration?, DurationState>(
           GetAllSongs.player.positionStream,
           GetAllSongs.player.durationStream,
@@ -78,10 +94,7 @@ class FullScreencontroller extends GetxController {
               position: position, total: duration ?? Duration.zero));
 }
 
-
-
 class DurationState {
   DurationState({this.position = Duration.zero, this.total = Duration.zero});
   Duration position, total;
 }
-

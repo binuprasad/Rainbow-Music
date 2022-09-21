@@ -5,83 +5,86 @@ import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/about_screen_controller.dart';
 
 class AboutScreen extends StatelessWidget {
-   AboutScreen({Key? key}) : super(key: key);
+  AboutScreen({Key? key}) : super(key: key);
 
-  final aboutcontroller =Get.put(AboutScreenController());
+  final aboutcontroller = Get.put(AboutScreenController());
   @override
   Widget build(BuildContext context) {
-    // TabController tabControllers =TabController(vsync: this,length: 2,);
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: appcolor)),
+              colors: appgradientcolor)),
       child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
           centerTitle: true,
           title: const Text(
             'About',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
           automaticallyImplyLeading: false,
           leading: IconButton(
-              onPressed: () {
-                Get.back();
-                // Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              )),
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+          ),
         ),
-        body:  Column(
+        body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:10,vertical: 50,),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 50,
+              ),
               child: TabBar(
-                labelStyle: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                indicator: const UnderlineTabIndicator(borderSide: BorderSide.none),
-                controller: aboutcontroller.controller,
-                tabs:aboutcontroller.myTap
-                //  const [
-                //      Tab(text: 'app'),
-                //       Tab(text: 'Developer',),
-                //       ],
-                    ), 
+                  labelStyle: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
+                  indicator:
+                      const UnderlineTabIndicator(borderSide: BorderSide.none),
+                  controller: aboutcontroller.controller,
+                  tabs: aboutcontroller.myTap
+                  //  const [
+                  //      Tab(text: 'app'),
+                  //       Tab(text: 'Developer',),
+                  //       ],
                   ),
-             CustomCard(
+            ),
+            CustomCard(
               color: const Color.fromARGB(255, 235, 239, 230),
               elevation: 15,
               shadowColor: Colors.green,
-                borderRadius:30,
-                height: MediaQuery.of(context).size.height/2,
-                child: Padding(
-                  padding:const EdgeInsets.all(8.0),
+              borderRadius: 30,
+              height: MediaQuery.of(context).size.height / 2,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: TabBarView(
                     controller: aboutcontroller.controller,
-                    children:const [
-                    Center(
-                      child: Text(
-                      'Welcome to MusicMusca and enjoy listening offline music with better experience. If you have any suggestions you can inform me by clicking the feedback section in the settings,We will try to improve our app more better,thank you.',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                     ),
-                    ),
-                   Center(
-                    child: Text(
-                     "I am Binuprasad.Expertised in UI/UX Designing and Flutter development based on kerala,if you have any queries related to  musicapp or about me by taping 'Contact' on the settings. Once of all thank you for supporting me.",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ),
-                ],
-              )
+                    children: const [
+                      Center(
+                        child: Text(
+                          'Welcome to MusicMusca and enjoy listening offline music with better experience. If you have any suggestions you can inform me by clicking the feedback section in the settings,We will try to improve our app more better,thank you.',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          "I am Binuprasad.Expertised in UI/UX Designing and Flutter development based on kerala,if you have any queries related to  musicapp or about me by taping 'Contact' on the settings. Once of all thank you for supporting me.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  )),
             ),
-           ),
           ],
         ),
       ),

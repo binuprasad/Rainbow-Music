@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marquee_text/marquee_text.dart';
+import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/miniplayer_controller.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
@@ -26,12 +27,12 @@ class MiniPlayer extends GetView<MiniPlayerController> {
             artworkBorder: BorderRadius.circular(5),
             nullArtworkWidget: const Icon(
               Icons.music_note,
-              color: Colors.amber,
+              color:appcolor,
             ),
             id: GetAllSongs.playingSong[GetAllSongs.player.currentIndex!].id,
             type: ArtworkType.AUDIO),
         title: MarqueeText(
-          style: const TextStyle(color: Colors.amber),
+          style: const TextStyle(color: appcolor),
           speed: 15,
           text: TextSpan(
               text: GetAllSongs

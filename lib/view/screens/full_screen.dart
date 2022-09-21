@@ -24,7 +24,7 @@ class FullScreen extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: appcolor)),
+              colors: appgradientcolor)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -97,30 +97,32 @@ class FullScreen extends StatelessWidget {
                 Column(
                   children: [
                     StreamBuilder<DurationState>(
-                        stream:fullScreencontroller.  durationStateStream,
-                        builder: (context, snapshot) {
-                          final durationState = snapshot.data;
-                          final progress =
-                              durationState?.position ?? Duration.zero;
-                          final total = durationState?.total ?? Duration.zero;
-                          return ProgressBar(
-                              timeLabelTextStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                              progress: progress,
-                              total: total,
-                              barHeight: 3.0,
-                              thumbRadius: 5,
-                              progressBarColor: Colors.black,
-                              thumbColor: Colors.black,
-                              baseBarColor: Colors.grey,
-                              bufferedBarColor: Colors.grey,
-                              buffered: const Duration(milliseconds: 2000),
-                              onSeek: (duration) {
-                                GetAllSongs.player.seek(duration);
-                              });
-                        }),
+                      stream: fullScreencontroller.durationStateStream,
+                      builder: (context, snapshot) {
+                        final durationState = snapshot.data;
+                        final progress =
+                            durationState?.position ?? Duration.zero;
+                        final total = durationState?.total ?? Duration.zero;
+                        return ProgressBar(
+                          timeLabelTextStyle: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                          progress: progress,
+                          total: total,
+                          barHeight: 3.0,
+                          thumbRadius: 5,
+                          progressBarColor: Colors.black,
+                          thumbColor: Colors.black,
+                          baseBarColor: Colors.grey,
+                          bufferedBarColor: Colors.grey,
+                          buffered: const Duration(milliseconds: 2000),
+                          onSeek: (duration) {
+                            GetAllSongs.player.seek(duration);
+                          },
+                        );
+                      },
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -134,18 +136,7 @@ class FullScreen extends StatelessWidget {
                             stream: GetAllSongs.player.loopModeStream,
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
-                              final loopMode = snapshot.data;
-                              if (LoopMode.one == loopMode) {
-                                return const Icon(
-                                  Icons.repeat_one,
-                                  color: Colors.black,
-                                );
-                              } else {
-                                return const Icon(
-                                  Icons.repeat,
-                                  color: Colors.grey,
-                                );
-                              }
+                              return fullScreencontroller.repeatSong(snapshot);
                             },
                           ),
                         ),
@@ -196,18 +187,6 @@ class FullScreen extends StatelessWidget {
                                   AsyncSnapshot snapshot) {
                                 return fullScreencontroller
                                     .playarrowbutton(snapshot);
-                                // bool? playingStage = snapshot.data;
-                                // if (playingStage != null && playingStage) {
-                                //   return const Icon(
-                                //     Icons.pause,
-                                //     size: 60,
-                                //   );
-                                // } else {
-                                //   return const Icon(
-                                //     Icons.play_arrow,
-                                //     size: 60,
-                                //   );
-                                // }
                               },
                             ),
                           ),
@@ -230,16 +209,4 @@ class FullScreen extends StatelessWidget {
       ),
     );
   }
-
-  // Stream<DurationState> get _durationStateStream =>
-  //     rx.Rx.combineLatest2<Duration, Duration?, DurationState>(
-  //         GetAllSongs.player.positionStream,
-  //         GetAllSongs.player.durationStream,
-  //         (position, duration) => DurationState(
-  //             position: position, total: duration ?? Duration.zero));
 }
-
-// class DurationState {
-//   DurationState({this.position = Duration.zero, this.total = Duration.zero});
-//   Duration position, total;
-// }

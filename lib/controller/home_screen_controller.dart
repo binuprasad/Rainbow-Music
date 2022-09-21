@@ -10,7 +10,6 @@ import 'package:permission_handler/permission_handler.dart';
 class HomeScreenController extends GetxController {
   final audioquery = OnAudioQuery();
 
-
   @override
   void onInit() {
     requestPermision();
@@ -22,33 +21,28 @@ class HomeScreenController extends GetxController {
     update();
   }
 
-  // homeConditions(item) {
-  //   if (item.data == null) {
-  //     return const Center(
-  //       child: CircularProgressIndicator(),
-  //     );
-  //   }
-  //   if (item.data.isEmpty) {
-  //     return const Center(
-  //       child: Text('Songs not foud'),
-  //     );
-  //   }
-  //   HomeScreen.songs = item.data;
-  //   if (!FavouriteDB.isInitialized) {
-  //     FavouriteDB.initialise(item.data);
-  //   }
-  //   GetAllSongs.songscopy = item.data;
-  // }
+  listtileOntap(index, homeSongs) {
+    GetAllSongs.player.setAudioSource(GetAllSongs.createSongList(homeSongs),
+        initialIndex: index);
+    GetAllSongs.player.play();
+    Get.to(FullScreen(playersong: homeSongs));
+  }
 
-  // homeListview(item, index) {
-  //   GetAllSongs.player.setAudioSource(GetAllSongs.createSongList(item.data),
-  //       initialIndex: index);
-  //   GetAllSongs.player.play();
-  //   GetAllSongs.player.play();
-    
-  //   Get.to(FullScreen(playersong: item.data));
-  //   update();
-  // }
-
-  
+  songcheckingConditions(homeSongs) {
+    if (homeSongs == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    if (homeSongs.isEmpty) {
+      return const Center(
+        child: Text('Songs not foud'),
+      );
+    }
+    HomeScreen.songs = homeSongs;
+    if (!FavouriteDB.isInitialized) {
+      FavouriteDB().initialise(homeSongs);
+    }
+    GetAllSongs.songscopy = homeSongs;
+  }
 }

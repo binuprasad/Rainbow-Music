@@ -9,10 +9,9 @@ import 'package:share/share.dart';
 
 // ignore: must_be_immutable
 class SettingsScreen extends StatelessWidget {
-   SettingsScreen({Key? key}) : super(key: key);
-   final settingsController =Get.put(SettingsController());
+  SettingsScreen({Key? key}) : super(key: key);
+  final settingsController = Get.put(SettingsController());
 
- 
   Urifunction feedback = Urifunction();
   @override
   Widget build(BuildContext context) {
@@ -21,29 +20,28 @@ class SettingsScreen extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: appcolor)),
+              colors: appgradientcolor)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: IconButton(
-              onPressed: () {
-                //setstate
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              )),
+            onPressed: () {
+              //setstate
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+          ),
           elevation: 0,
           backgroundColor: Colors.transparent,
           centerTitle: true,
           title: const Text(
             'Settings',
-            style: TextStyle(
-              color: Colors.black, 
-              fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         body: Column(
@@ -52,16 +50,15 @@ class SettingsScreen extends StatelessWidget {
               color: Colors.transparent,
               borderRadius: 7.0,
               child: ListTile(
-                  onTap: () {
-                    feedback.emailUriFunction();
-                  },
-                  leading: const Text(
-                    'Feedback',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                       fontSize: 17),
-                  ),
-                  trailing: const Icon(Icons.feedback)),
+                onTap: () {
+                  feedback.emailUriFunction();
+                },
+                leading: const Text(
+                  'Feedback',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                ),
+                trailing: const Icon(Icons.feedback),
+              ),
             ),
             CustomCard(
               color: Colors.transparent,
@@ -72,9 +69,7 @@ class SettingsScreen extends StatelessWidget {
                 },
                 leading: const Text(
                   'ResetApp',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 17),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                 ),
                 trailing: const Icon(Icons.replay),
               ),
@@ -83,40 +78,38 @@ class SettingsScreen extends StatelessWidget {
               color: Colors.transparent,
               borderRadius: 7.0,
               child: ListTile(
-                  onTap: () {},
-                  leading: const Text(
-                    'RateApp',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                       fontSize: 17),
-                  ),
-                  trailing: const Icon(Icons.star)),
-            ),
-            CustomCard(
-              color: Colors.transparent,
-              borderRadius: 7.0,
-              child: ListTile(
-                  onTap: () {
-                   Get.to( AboutScreen());
-                  },
-                  leading: const Text(
-                    'About',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                     fontSize: 17),
-                  ),
-                  trailing: const Icon(
-                    Icons.info_outline_rounded,
-                    color: Colors.black,
-                  )),
+                onTap: () {},
+                leading: const Text(
+                  'RateApp',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                ),
+                trailing: const Icon(Icons.star),
+              ),
             ),
             CustomCard(
               color: Colors.transparent,
               borderRadius: 7.0,
               child: ListTile(
                 onTap: () {
-                  Share.share('https://play.google.com/store/apps/details?id=in.binuprasad.music_player');
-
+                  Get.to(AboutScreen());
+                },
+                leading: const Text(
+                  'About',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                ),
+                trailing: const Icon(
+                  Icons.info_outline_rounded,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            CustomCard(
+              color: Colors.transparent,
+              borderRadius: 7.0,
+              child: ListTile(
+                onTap: () {
+                  Share.share(
+                      'https://play.google.com/store/apps/details?id=in.binuprasad.music_player');
                 },
                 leading: const Text(
                   'Share',
@@ -126,22 +119,19 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             CustomCard(
-                onTap: () {
-                 settingsController. showContactBottomsheet();
-                },
-                color: Colors.transparent,
-                borderRadius: 7.0,
-                child: const ListTile(
-                    leading: Text(
-                      'Contact',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    trailing: Icon(
-                      Icons.contact_page,
-                    )
-                  )
-               ),
+              onTap: () {
+                settingsController.showContactBottomsheet();
+              },
+              color: Colors.transparent,
+              borderRadius: 7.0,
+              child: const ListTile(
+                leading: Text(
+                  'Contact',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                ),
+                trailing: Icon(Icons.contact_page),
+              ),
+            ),
           ],
         ),
       ),
