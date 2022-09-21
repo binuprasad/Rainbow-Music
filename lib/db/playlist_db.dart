@@ -1,24 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_player/controller/favourite_screen%20_controller.dart';
-import 'package:music_player/db/favourite_db.dart';
 import 'package:music_player/model/model.dart';
 import 'package:music_player/view/screens/splash_screen.dart';
 
-ValueNotifier<List<MusicModel>> playlistnotifier = ValueNotifier([]);
+List<MusicModel> playlistnotifier = [];
 
 Future<void> playlistAdd(MusicModel value) async {
   final playlistDB = Hive.box<MusicModel>('playlist_db');
   await playlistDB.add(value);
-  playlistnotifier.value.add(value);
+  playlistnotifier.add(value);
 }
 
 Future<void> getAllPlaylist() async {
   final playlistDB = Hive.box<MusicModel>('playlist_db');
-  playlistnotifier.value.clear();
-  playlistnotifier.value.addAll(playlistDB.values);
-  playlistnotifier.notifyListeners();
+  playlistnotifier.clear();
+  playlistnotifier.addAll(playlistDB.values);
 }
 
 Future<void> playlistDelete(int index) async {
