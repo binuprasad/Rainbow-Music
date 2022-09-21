@@ -1,10 +1,16 @@
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music_player/db/playlist_db.dart';
+import 'package:music_player/model/model.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class PlaylistViewController extends GetxController{
+class PlaylistViewController extends GetxController {
 
-   List<SongModel> listPlaylist(List<int> data) {
+   final hive = Hive.box<MusicModel>('playlist_db').obs;
+
+
+  List<SongModel> listPlaylist(List<int> data) {
     List<SongModel> plsongs = [];
     for (int i = 0; i < GetAllSongs.songscopy.length; i++) {
       for (int j = 0; j < data.length; j++) {
@@ -16,5 +22,9 @@ class PlaylistViewController extends GetxController{
     return plsongs;
   }
 
-  
+  @override
+  void onInit() {
+    getAllPlaylist();
+    super.onInit();
+  }
 }
