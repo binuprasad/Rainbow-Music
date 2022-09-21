@@ -81,10 +81,7 @@ class PlaylistView extends GetView<PlaylistViewController> {
                             size: 30,
                             color: Colors.black,
                           ),
-                          // errorBuilder: (context, excepion, gdb) {
-                          //   setState(() {});
-                          //   return Image.asset('');
-                          // },
+                         
                         ),
                         title: Text(
                           playlistsong[index].title,

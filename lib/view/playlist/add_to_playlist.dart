@@ -3,19 +3,12 @@ import 'package:get/get.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/add_to_playlist_controller.dart';
 import 'package:music_player/model/model.dart';
-import 'package:music_player/db/playlist_db.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class AddToPlaylist extends StatefulWidget {
-  const AddToPlaylist({Key? key, required this.playlist}) : super(key: key);
+class AddToPlaylist extends StatelessWidget {
+  AddToPlaylist({Key? key, required this.playlist}) : super(key: key);
   final MusicModel playlist;
 
-  @override
-  State<AddToPlaylist> createState() => _AddToPlaylistState();
-}
-
-class _AddToPlaylistState extends State<AddToPlaylist> {
-  final OnAudioQuery audioQuery = OnAudioQuery();
   final addtocontroller = Get.put(AddToPlaylistController());
 
   @override
@@ -50,7 +43,7 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
           ),
         ),
         body: FutureBuilder<List<SongModel>>(
-          future: audioQuery.querySongs(
+          future: addtocontroller.audioQuery.querySongs(
               sortType: null,
               orderType: OrderType.ASC_OR_SMALLER,
               uriType: UriType.EXTERNAL,
@@ -70,7 +63,8 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
               );
             }
             return SingleChildScrollView(
-              child: ListView.separated(
+              child: GetBuilder<AddToPlaylistController>(
+                builder: (controller) => ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
@@ -97,14 +91,10 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
                       ),
                       trailing: IconButton(
                         onPressed: () {
-                          setState(
-                            () {
-                              playlistCheck(item.data![index]);
-                              playlistnotifier.notifyListeners();
-                            },
-                          );
+                          addtocontroller.playlistCheck(
+                              item.data![index], playlist);
                         },
-                        icon: !widget.playlist.isValueIn(item.data![index].id)
+                        icon: !playlist.isValueIn(item.data![index].id)
                             ? const Icon(
                                 Icons.playlist_add_check_circle,
                                 color: Colors.black,
@@ -119,24 +109,13 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
                   separatorBuilder: (ctx, index) {
                     return const Divider();
                   },
-                  itemCount: item.data!.length),
+                  itemCount: item.data!.length,
+                ),
+              ),
             );
           },
         ),
       ),
     );
-  }
-
-  void playlistCheck(SongModel data) {
-    if (!widget.playlist.isValueIn(data.id)) {
-      widget.playlist.add(data.id);
-      Get.snackbar('Song Added', "Song added to playlist",
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(milliseconds: 950));
-    } else {
-      widget.playlist.deleteData(data.id);
-      Get.snackbar('Song removed', "Song removed from the playlist",
-          snackPosition: SnackPosition.BOTTOM);
-    }
   }
 }
