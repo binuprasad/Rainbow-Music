@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/about_screen_controller.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends GetView<AboutScreenController> {
   AboutScreen({Key? key}) : super(key: key);
 
   final aboutcontroller = Get.put(AboutScreenController());

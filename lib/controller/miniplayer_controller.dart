@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 
@@ -11,7 +10,7 @@ class MiniPlayerController extends GetxController {
       }
     });
     super.onInit();
-      update();
+    update();
   }
 
   miniplayerplaybutton() async {
@@ -24,23 +23,4 @@ class MiniPlayerController extends GetxController {
     }
     update();
   }
-
-  // conditionchecking(currentPlayingStage) {
-  //   if (currentPlayingStage != null && currentPlayingStage) {
-  //     update();
-  //     return const Icon(
-  //       Icons.pause,
-  //       size: 35,
-  //       color: Colors.white,
-  //     );
-  //   } else {
-  //     update();
-  //     return const Icon(
-  //       Icons.play_arrow,
-  //       size: 35,
-  //       color: Colors.white,
-  //     );
-  //   }
-    
-  // }
 }

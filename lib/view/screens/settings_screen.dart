@@ -8,7 +8,7 @@ import 'package:music_player/view/screens/feedback_url.dart';
 import 'package:share/share.dart';
 
 // ignore: must_be_immutable
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends GetView<SettingsController> {
   SettingsScreen({Key? key}) : super(key: key);
   final settingsController = Get.put(SettingsController());
 

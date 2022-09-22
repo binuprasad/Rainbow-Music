@@ -4,7 +4,7 @@ import 'package:music_player/controller/favourite_button_controller.dart';
 import 'package:music_player/db/favourite_db.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class FavouriteBtn extends StatelessWidget {
+class FavouriteBtn extends GetView<FavouriteButtonController> {
   FavouriteBtn({Key? key, required this.song}) : super(key: key);
   final SongModel song;
   final favouritecontroller = Get.put(FavouriteButtonController());

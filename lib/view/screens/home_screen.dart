@@ -8,7 +8,7 @@ import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:music_player/view/screens/settings_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends GetView<HomeScreenController> {
   HomeScreen({Key? key}) : super(key: key);
   static List<SongModel> songs = [];
   final homeController = Get.put(HomeScreenController());

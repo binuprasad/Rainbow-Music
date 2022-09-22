@@ -8,7 +8,7 @@ import 'package:music_player/view/favourite/favourite_button.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class FullScreen extends StatelessWidget {
+class FullScreen extends GetView<FullScreencontroller> {
   FullScreen({Key? key, required this.playersong}) : super(key: key);
   final List<SongModel> playersong;
 

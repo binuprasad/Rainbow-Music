@@ -11,7 +11,7 @@ class PlaylistViewController extends GetxController {
 
 
   List<SongModel> listPlaylist(List<int> data) {
-    List<SongModel> plsongs = [];
+    List<SongModel> plsongs = []; 
     for (int i = 0; i < GetAllSongs.songscopy.length; i++) {
       for (int j = 0; j < data.length; j++) {
         if (GetAllSongs.songscopy[i].id == data[j]) {

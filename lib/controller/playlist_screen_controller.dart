@@ -5,6 +5,7 @@ import 'package:music_player/db/playlist_db.dart';
 import 'package:music_player/model/model.dart';
 
 class PlaylistscreenController extends GetxController {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
 
   final hive = Hive.box<MusicModel>('playlist_db');

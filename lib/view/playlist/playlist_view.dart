@@ -12,11 +12,11 @@ import 'package:music_player/view/playlist/add_to_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistView extends GetView<PlaylistViewController> {
-   PlaylistView({Key? key, required this.playlist, required this.folderindex}): super(key: key);
+  PlaylistView({Key? key, required this.playlist, required this.folderindex})
+      : super(key: key);
   final MusicModel playlist;
   final int folderindex;
 
- 
   late List<SongModel> playlistsong;
 
   final playlistviewcontroller = Get.put(PlaylistViewController());
@@ -42,20 +42,21 @@ class PlaylistView extends GetView<PlaylistViewController> {
           ),
           automaticallyImplyLeading: false,
           leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              )),
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+          ),
         ),
         body: ValueListenableBuilder(
           valueListenable: Hive.box<MusicModel>('playlist_db').listenable(),
           builder:
               (BuildContext context, Box<MusicModel> value, Widget? child) {
-            playlistsong =
-             playlistviewcontroller.listPlaylist(value.values.toList()[folderindex].songIds);
+            playlistsong = playlistviewcontroller
+                .listPlaylist(value.values.toList()[folderindex].songIds);
             return playlistsong.isEmpty
                 ? const Center(
                     child: Text('Add your songs'),
@@ -64,7 +65,7 @@ class PlaylistView extends GetView<PlaylistViewController> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         onTap: () {
-                          List<SongModel> newlist = [...playlistsong];
+                          List<SongModel> newlist = [...playlistsong]; 
                           GetAllSongs.player.stop();
                           GetAllSongs.player.setAudioSource(
                               GetAllSongs.createSongList(newlist),
@@ -81,7 +82,6 @@ class PlaylistView extends GetView<PlaylistViewController> {
                             size: 30,
                             color: Colors.black,
                           ),
-                         
                         ),
                         title: Text(
                           playlistsong[index].title,
@@ -95,23 +95,26 @@ class PlaylistView extends GetView<PlaylistViewController> {
                           maxLines: 1,
                         ),
                         trailing: IconButton(
-                            onPressed: () {
-                              Get.defaultDialog(
-                                  title: 'Remove song?',
-                                  content: const Text(
-                                      'Are you sure to remove the song from playlist?'),
-                                  confirm: TextButton(
-                                      onPressed: () {
-                                      playlist
-                                            .deleteData(playlistsong[index].id);
-                                        Get.back();
-                                      },
-                                      child: const Text('Yes')),
-                                  cancel: TextButton(
-                                      onPressed: () => Get.back(),
-                                      child: const Text('No')));
-                            },
-                            icon: const Icon(Icons.delete)),
+                          onPressed: () {
+                            Get.defaultDialog(
+                              title: 'Remove song?',
+                              content: const Text(
+                                  'Are you sure to remove the song from playlist?'),
+                              confirm: TextButton(
+                                onPressed: () {
+                                  playlist.deleteData(playlistsong[index].id);
+                                  Get.back();
+                                },
+                                child: const Text('Yes'),
+                              ),
+                              cancel: TextButton(
+                                onPressed: () => Get.back(),
+                                child: const Text('No'),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
                       );
                     },
                     separatorBuilder: (context, index) {
@@ -127,9 +130,9 @@ class PlaylistView extends GetView<PlaylistViewController> {
           },
           child: const Icon(
             Icons.add,
-            color: Colors.yellowAccent,
+            color: appcolor,
           ),
-        ), 
+        ),
       ),
     );
   }

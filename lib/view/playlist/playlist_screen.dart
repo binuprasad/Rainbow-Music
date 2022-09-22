@@ -6,10 +6,9 @@ import 'package:music_player/controller/playlist_screen_controller.dart';
 import 'package:music_player/model/model.dart';
 import 'package:music_player/view/playlist/playlist_view.dart';
 
-class PlaylistScreen extends StatelessWidget {
+class PlaylistScreen extends GetView<PlaylistscreenController> {
   PlaylistScreen({Key? key}) : super(key: key);
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final playlistcontroller = Get.put(PlaylistscreenController());
 
   @override
@@ -111,13 +110,10 @@ class PlaylistScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                ),
+          ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.black,
             onPressed: () {
-              // Get.defaultDialog(
-              //   content: Actions(actions: [], child: child)
-              // );
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -143,7 +139,7 @@ class PlaylistScreen extends StatelessWidget {
                               height: 30,
                             ),
                             Form(
-                              key: _formKey,
+                              key: playlistcontroller.formKey,
                               child: TextFormField(
                                 controller: playlistcontroller.nameController,
                                 decoration: const InputDecoration(
@@ -180,7 +176,9 @@ class PlaylistScreen extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.black),
                                     onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
+                                      if (playlistcontroller
+                                          .formKey.currentState!
+                                          .validate()) {
                                         playlistcontroller.whenButtonClicked();
                                         Get.back();
                                       }

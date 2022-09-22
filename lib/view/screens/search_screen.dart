@@ -4,11 +4,10 @@ import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/search_screen_controller.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SearchSong extends GetView<Searchcontroller> {
-  SearchSong({Key? key}) : super(key: key);
+  SearchSong({Key? key}) : super(key: key); 
 
   final searchcontroller = Get.lazyPut(() => Searchcontroller());
 
