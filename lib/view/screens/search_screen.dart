@@ -7,7 +7,7 @@ import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SearchSong extends GetView<Searchcontroller> {
-  SearchSong({Key? key}) : super(key: key); 
+  SearchSong({Key? key}) : super(key: key);
 
   final searchcontroller = Get.lazyPut(() => Searchcontroller());
 
@@ -15,10 +15,12 @@ class SearchSong extends GetView<Searchcontroller> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: appgradientcolor)),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: appgradientcolor,
+        ),
+      ),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.transparent,
@@ -28,17 +30,20 @@ class SearchSong extends GetView<Searchcontroller> {
             automaticallyImplyLeading: false,
             elevation: 0,
             leading: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                )),
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: black,
+              ),
+            ),
             title: const Text(
               'Search Your Songs',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           body: Padding(
@@ -53,17 +58,17 @@ class SearchSong extends GetView<Searchcontroller> {
                     onChanged: (value) => controller.runFilter(value),
                     decoration: InputDecoration(
                       hintText: "Search your song",
-                      fillColor: Colors.white,
+                      fillColor: white,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
                         borderSide: const BorderSide(
-                          color: Colors.white,
+                          color: white,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0),
                         borderSide: const BorderSide(
-                          color: Colors.black,
+                          color: black,
                           width: 1.0,
                         ),
                       ),
@@ -81,7 +86,6 @@ class SearchSong extends GetView<Searchcontroller> {
                             itemBuilder: (context, index) => Card(
                               key: ValueKey(controller.foundSongs[index].id),
                               color: Colors.lightBlue,
-                              
                               margin: const EdgeInsets.symmetric(vertical: 7),
                               child: ListTile(
                                 onTap: () {
@@ -91,8 +95,11 @@ class SearchSong extends GetView<Searchcontroller> {
                                           controller.foundSongs),
                                       initialIndex: index);
                                   GetAllSongs.player.play();
-                                  Get.to(FullScreen(
-                                      playersong: controller.foundSongs));
+                                  Get.to(
+                                    FullScreen(
+                                      playersong: controller.foundSongs,
+                                    ),
+                                  );
                                 },
                                 leading: QueryArtworkWidget(
                                   id: controller.foundSongs[index].id,

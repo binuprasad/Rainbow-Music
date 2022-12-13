@@ -12,19 +12,20 @@ class AboutScreen extends GetView<AboutScreenController> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: appgradientcolor)),
+        gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: appgradientcolor),
+      ),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: white,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: white,
           centerTitle: true,
           title: const Text(
             'About',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            style: TextStyle(fontWeight: FontWeight.bold, color: black),
           ),
           automaticallyImplyLeading: false,
           leading: IconButton(
@@ -33,7 +34,7 @@ class AboutScreen extends GetView<AboutScreenController> {
             },
             icon: const Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: black,
             ),
           ),
         ),
@@ -45,40 +46,42 @@ class AboutScreen extends GetView<AboutScreenController> {
                 vertical: 50,
               ),
               child: TabBar(
-                  labelStyle: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
-                  indicator:
-                      const UnderlineTabIndicator(borderSide: BorderSide.none),
-                  controller: aboutcontroller.controller,
-                  tabs: aboutcontroller.myTap),
+                labelStyle:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                indicator:
+                    const UnderlineTabIndicator(borderSide: BorderSide.none),
+                controller: aboutcontroller.controller,
+                tabs: aboutcontroller.myTap,
+              ),
             ),
             CustomCard(
               color: const Color.fromARGB(255, 235, 239, 230),
               elevation: 15,
-              shadowColor: Colors.green,
+              shadowColor: green,
               borderRadius: 30,
               height: MediaQuery.of(context).size.height / 2,
               child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TabBarView(
-                    controller: aboutcontroller.controller,
-                    children: const [
-                      Center(
-                        child: Text(
-                          'Welcome to MusicMusca and enjoy listening offline music with better experience. If you have any suggestions you can inform me by clicking the feedback section in the settings,We will try to improve our app more better,thank you.',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+                padding: const EdgeInsets.all(8.0),
+                child: TabBarView(
+                  controller: aboutcontroller.controller,
+                  children: const [
+                    Center(
+                      child: Text(
+                        'Welcome to MusicMusca and enjoy listening offline music with better experience. If you have any suggestions you can inform me by clicking the feedback section in the settings,We will try to improve our app more better,thank you.',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                      Center(
-                        child: Text(
-                          "I am Binuprasad.Expertised in UI/UX Designing and Flutter development based on kerala,if you have any queries related to  musicapp or about me by taping 'Contact' on the settings. Once of all thank you for supporting me.",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+                    ),
+                    Center(
+                      child: Text(
+                        "I am Binuprasad.Expertised in UI/UX Designing and Flutter development based on kerala,if you have any queries related to  musicapp or about me by taping 'Contact' on the settings. Once of all thank you for supporting me.",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

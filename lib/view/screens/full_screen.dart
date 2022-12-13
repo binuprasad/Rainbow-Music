@@ -30,7 +30,7 @@ class FullScreen extends GetView<FullScreencontroller> {
         appBar: AppBar(
           title: const Text(
             'Now Playing',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color:black, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
@@ -42,8 +42,8 @@ class FullScreen extends GetView<FullScreencontroller> {
               },
               icon: const Icon(
                 Icons.arrow_back,
-                color: Colors.black,
-              )),
+                color: black,
+              ),),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -105,17 +105,17 @@ class FullScreen extends GetView<FullScreencontroller> {
                         final total = durationState?.total ?? Duration.zero;
                         return ProgressBar(
                           timeLabelTextStyle: const TextStyle(
-                              color: Colors.black,
+                              color: black,
                               fontWeight: FontWeight.bold,
                               fontSize: 15),
                           progress: progress,
                           total: total,
                           barHeight: 3.0,
                           thumbRadius: 5,
-                          progressBarColor: Colors.black,
-                          thumbColor: Colors.black,
-                          baseBarColor: Colors.grey,
-                          bufferedBarColor: Colors.grey,
+                          progressBarColor: black,
+                          thumbColor: black,
+                          baseBarColor: grey,
+                          bufferedBarColor: grey,
                           buffered: const Duration(milliseconds: 2000),
                           onSeek: (duration) {
                             GetAllSongs.player.seek(duration);
@@ -156,7 +156,7 @@ class FullScreen extends GetView<FullScreencontroller> {
                                   ? const Icon(Icons.shuffle_rounded)
                                   : const Icon(
                                       Icons.shuffle_rounded,
-                                      color: Colors.grey,
+                                      color: grey,
                                     ),
                             );
                           },

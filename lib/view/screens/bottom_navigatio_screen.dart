@@ -6,6 +6,8 @@ import 'package:music_player/controller/miniplayer_controller.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:music_player/view/screens/miniscreen.dart';
 
+import '../../colors/colors.dart';
+
 class BottomNavigationScreen extends GetView<BottomnavigationController> {
   BottomNavigationScreen({
     Key? key,
@@ -33,9 +35,9 @@ class BottomNavigationScreen extends GetView<BottomnavigationController> {
               Obx(
                 () => BottomNavigationBar(
                   type: BottomNavigationBarType.fixed,
-                  backgroundColor: Colors.black,
+                  backgroundColor: black,
                   selectedItemColor: Colors.yellow,
-                  unselectedItemColor: Colors.white,
+                  unselectedItemColor: white,
                   currentIndex: bottomnavcontroller.baseindex.value,
                   onTap: (newIndex) {
                     bottomnavcontroller.bottomnavigationontap(newIndex);

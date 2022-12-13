@@ -29,7 +29,7 @@ class AddToPlaylist extends StatelessWidget {
           backgroundColor: Colors.transparent,
           title: const Text(
             'AddSongs',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: black),
           ),
           automaticallyImplyLeading: false,
           leading: IconButton(
@@ -38,7 +38,7 @@ class AddToPlaylist extends StatelessWidget {
             },
             icon: const Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: black,
             ),
           ),
         ),
@@ -97,11 +97,11 @@ class AddToPlaylist extends StatelessWidget {
                         icon: !playlist.isValueIn(item.data![index].id)
                             ? const Icon(
                                 Icons.playlist_add_check_circle,
-                                color: Colors.black,
+                                color: black,
                               )
                             : const Icon(
                                 Icons.close,
-                                color: Colors.red,
+                                color: red,
                               ),
                       ),
                     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player/colors/colors.dart';
-import 'package:music_player/controller/miniplayer_controller.dart'; 
+import 'package:music_player/controller/miniplayer_controller.dart';
 import 'package:music_player/view/screens/full_screen.dart';
 import 'package:music_player/view/screens/get_all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -17,11 +17,15 @@ class MiniPlayer extends GetView<MiniPlayerController> {
     return GetBuilder<MiniPlayerController>(
       builder: (controller) => AnimatedContainer(
         decoration: const BoxDecoration(
-          color: Colors.black,
+          color: black,
         ),
         duration: const Duration(seconds: 2),
         child: ListTile(
-          onTap: () => Get.to(FullScreen(playersong: GetAllSongs.playingSong)),
+          onTap: () => Get.to(
+            FullScreen(
+              playersong: GetAllSongs.playingSong,
+            ),
+          ),
           leading: QueryArtworkWidget(
               keepOldArtwork: true,
               artworkBorder: BorderRadius.circular(5),
@@ -48,13 +52,13 @@ class MiniPlayer extends GetView<MiniPlayerController> {
                   return const Icon(
                     Icons.pause,
                     size: 35,
-                    color: Colors.white,
+                    color: white,
                   );
                 } else {
                   return const Icon(
                     Icons.play_arrow,
                     size: 35,
-                    color: Colors.white,
+                    color: white,
                   );
                 }
               }),

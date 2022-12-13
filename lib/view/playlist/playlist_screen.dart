@@ -30,7 +30,7 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
             title: const Text(
               'Playlist',
               style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                  TextStyle(color: black, fontWeight: FontWeight.bold),
             ),
           ),
           body: Padding(
@@ -58,7 +58,7 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                                 playlist: data, folderindex: index));
                           },
                           child: Container(
-                            color: Colors.black,
+                            color: black,
                             child: Column(
                               children: [
                                 Container(
@@ -82,7 +82,7 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                                             data.name,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                color: white,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -96,7 +96,7 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                                           },
                                           icon: const Icon(
                                             Icons.delete,
-                                            color: Colors.white,
+                                            color: white,
                                           ),
                                         ),
                                       ),
@@ -161,7 +161,7 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                                   width: 100.0,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.black),
+                                        backgroundColor: black),
                                     onPressed: () {
                                       Get.back();
                                     },
@@ -174,7 +174,7 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                                   width: 100.0,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.black),
+                                        backgroundColor: black),
                                     onPressed: () {
                                       if (playlistcontroller
                                           .formKey.currentState!
@@ -185,7 +185,7 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                                     },
                                     child: const Text(
                                       'Save',
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: white),
                                     ),
                                   ),
                                 ),

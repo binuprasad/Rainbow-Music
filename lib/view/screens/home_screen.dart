@@ -31,7 +31,7 @@ class HomeScreen extends GetView<HomeScreenController> {
           elevation: 0,
           title: const Text(
             'All Songs',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: black, fontWeight: FontWeight.bold),
           ),
           actions: [
             IconButton(
@@ -40,7 +40,7 @@ class HomeScreen extends GetView<HomeScreenController> {
               },
               icon: const Icon(
                 Icons.settings,
-                color: Colors.black,
+                color: black,
               ),
             )
           ],

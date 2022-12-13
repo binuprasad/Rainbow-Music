@@ -11,8 +11,12 @@ class GetAllSongs {
     List<AudioSource> sources = [];
     playingSong = songs;
     for (var song in songs) {
-      sources.add(AudioSource.uri(Uri.parse(song.uri!),
-          tag: MediaItem(id: song.id.toString(), title: song.title)));
+      sources.add(
+        AudioSource.uri(
+          Uri.parse(song.uri!),
+          tag: MediaItem(id: song.id.toString(), title: song.title),
+        ),
+      );
     }
     return ConcatenatingAudioSource(children: sources);
   }

@@ -25,10 +25,11 @@ class PlaylistView extends GetView<PlaylistViewController> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: appgradientcolor)),
+        gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: appgradientcolor),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -37,8 +38,7 @@ class PlaylistView extends GetView<PlaylistViewController> {
           centerTitle: true,
           title: Text(
             playlist.name,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.black),
+            style: const TextStyle(fontWeight: FontWeight.bold, color: black),
           ),
           automaticallyImplyLeading: false,
           leading: IconButton(
@@ -47,7 +47,7 @@ class PlaylistView extends GetView<PlaylistViewController> {
             },
             icon: const Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: black,
             ),
           ),
         ),
@@ -65,7 +65,7 @@ class PlaylistView extends GetView<PlaylistViewController> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         onTap: () {
-                          List<SongModel> newlist = [...playlistsong]; 
+                          List<SongModel> newlist = [...playlistsong];
                           GetAllSongs.player.stop();
                           GetAllSongs.player.setAudioSource(
                               GetAllSongs.createSongList(newlist),
@@ -80,13 +80,12 @@ class PlaylistView extends GetView<PlaylistViewController> {
                           nullArtworkWidget: const Icon(
                             Icons.music_note_outlined,
                             size: 30,
-                            color: Colors.black,
+                            color: black,
                           ),
                         ),
                         title: Text(
                           playlistsong[index].title,
-                          style: const TextStyle(
-                              fontSize: 15, color: Colors.black),
+                          style: const TextStyle(fontSize: 15, color: black),
                           maxLines: 1,
                         ),
                         subtitle: Text(
@@ -124,7 +123,7 @@ class PlaylistView extends GetView<PlaylistViewController> {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
+          backgroundColor: black,
           onPressed: () {
             Get.to(AddToPlaylist(playlist: playlist));
           },

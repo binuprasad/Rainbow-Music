@@ -20,7 +20,7 @@ class SettingsScreen extends GetView<SettingsController> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: appgradientcolor)),
+              colors: appgradientcolor,),),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
@@ -28,12 +28,11 @@ class SettingsScreen extends GetView<SettingsController> {
           automaticallyImplyLeading: false,
           leading: IconButton(
             onPressed: () {
-              //setstate
               Get.back();
             },
             icon: const Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: black,
             ),
           ),
           elevation: 0,
@@ -41,7 +40,7 @@ class SettingsScreen extends GetView<SettingsController> {
           centerTitle: true,
           title: const Text(
             'Settings',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: black, fontWeight: FontWeight.bold,),
           ),
         ),
         body: Column(
@@ -99,7 +98,7 @@ class SettingsScreen extends GetView<SettingsController> {
                 ),
                 trailing: const Icon(
                   Icons.info_outline_rounded,
-                  color: Colors.black,
+                  color: black,
                 ),
               ),
             ),
