@@ -7,9 +7,9 @@ class AboutScreenController extends GetxController with GetSingleTickerProviderS
 
   final List<Tab>myTap =[
     const Tab(
-      text: 'Welcome to MusicMusca and enjoy listening offline music with better experience. If you have any suggestions you can inform me by clicking the feedback section in the settings,We will try to improve our app more better,thank you.',
+      text: 'About App',
     ),
-    const Tab(text: "I am Binuprasad.Expertised in UI/UX Designing and Flutter development based on kerala,if you have any queries related to  musicapp or about me by taping 'Contact' on the settings. Once of all thank you for supporting me.",)
+    const Tab(text: "About Developer",)
   ];
   @override
   void onInit() {

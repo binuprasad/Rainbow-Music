@@ -50,12 +50,7 @@ class AboutScreen extends GetView<AboutScreenController> {
                   indicator:
                       const UnderlineTabIndicator(borderSide: BorderSide.none),
                   controller: aboutcontroller.controller,
-                  tabs: aboutcontroller.myTap
-                  //  const [
-                  //      Tab(text: 'app'),
-                  //       Tab(text: 'Developer',),
-                  //       ],
-                  ),
+                  tabs: aboutcontroller.myTap),
             ),
             CustomCard(
               color: const Color.fromARGB(255, 235, 239, 230),
