@@ -97,18 +97,27 @@ class PlaylistView extends GetView<PlaylistViewController> {
                           onPressed: () {
                             Get.defaultDialog(
                               title: 'Remove song?',
-                              content: const Text(
-                                  'Are you sure to remove the song from playlist?'),
+                              content: const Text('Are you sure ?',style: TextStyle(color: grey),),
                               confirm: TextButton(
                                 onPressed: () {
                                   playlist.deleteData(playlistsong[index].id);
                                   Get.back();
                                 },
-                                child: const Text('Yes'),
+                                child: const Text(
+                                  'Yes',
+                                  style: TextStyle(
+                                    color: black,
+                                  ),
+                                ),
                               ),
                               cancel: TextButton(
                                 onPressed: () => Get.back(),
-                                child: const Text('No'),
+                                child: const Text(
+                                  'No',
+                                  style: TextStyle(
+                                    color: black,
+                                  ),
+                                ),
                               ),
                             );
                           },

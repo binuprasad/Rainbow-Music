@@ -84,8 +84,11 @@ class SearchSong extends GetView<Searchcontroller> {
                         ? ListView.builder(
                             itemCount: controller.foundSongs.length,
                             itemBuilder: (context, index) => Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                               key: ValueKey(controller.foundSongs[index].id),
-                              color: Colors.lightBlue,
+                              color: Colors.lightBlue.withOpacity(0.5),
                               margin: const EdgeInsets.symmetric(vertical: 7),
                               child: ListTile(
                                 onTap: () {

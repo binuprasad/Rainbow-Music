@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music_player/colors/colors.dart';
 import 'package:music_player/db/playlist_db.dart';
 import 'package:music_player/model/model.dart';
 
@@ -37,14 +39,32 @@ class PlaylistscreenController extends GetxController {
     Get.defaultDialog(
       title: 'Delete playlist?',
       content: const Text('Are you sure to delete the playlist'),
-      onCancel: () {
-        Get.back();
-      },
-      onConfirm: () {
-        hive.deleteAt(index);
-        update();
-        Get.back();
-      },
+      confirm: TextButton(
+        onPressed: () {
+          hive.deleteAt(index);
+          update();
+          Get.back();
+        },
+        child: Text(
+          'Ok',
+          style: GoogleFonts.ptSerif(
+            color: black,
+          ),
+        ),
+      ),
+      cancel: TextButton(
+        onPressed: () {
+          Get.back();
+        },
+        child: Text(
+          'Cancel',
+          style: GoogleFonts.ptSerif(
+            color: black,
+          ),
+        ),
+      ),
+
+    
     );
   }
 }

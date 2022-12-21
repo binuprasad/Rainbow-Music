@@ -55,10 +55,14 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                         return GestureDetector(
                           onTap: () {
                             Get.to(PlaylistView(
-                                playlist: data, folderindex: index));
+                                playlist: data, folderindex: index,),);
                           },
                           child: Container(
-                            color: black,
+                             decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: black,
+                                  ),
+                            
                             child: Column(
                               children: [
                                 Container(

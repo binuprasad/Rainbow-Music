@@ -25,7 +25,6 @@ class FavouriteScreenController extends GetxController {
     Get.snackbar(
       'Song Removed ',
       'Song removed from favourite',
-      duration: const Duration(milliseconds: 940),
       snackPosition: SnackPosition.BOTTOM,
     );
   }

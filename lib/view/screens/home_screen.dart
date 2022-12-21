@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/home_screen_controller.dart';
 import 'package:music_player/view/favourite/favourite_button.dart';
@@ -19,19 +20,32 @@ class HomeScreen extends GetView<HomeScreenController> {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: appgradientcolor),
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: appgradientcolor,
+        ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
-            'All Songs',
-            style: TextStyle(color: black, fontWeight: FontWeight.bold),
+          title: Row(
+            children: [
+              Text(
+                'All Songs',
+                style: GoogleFonts.ptSerif(
+                  color: black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Expanded(
+                child: Divider(
+                  thickness: 1,
+                  color: black,
+                ),
+              )
+            ],
           ),
           actions: [
             IconButton(
@@ -60,7 +74,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             }
             if (homeSongs.isEmpty) {
               return const Center(
-                child: Text('Songs not foud'),
+                child: Text('Songs not found'),
               );
             }
             HomeScreen.songs = homeSongs;
@@ -70,10 +84,8 @@ class HomeScreen extends GetView<HomeScreenController> {
             GetAllSongs.songscopy = homeSongs;
 
             return ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return const Divider();
-                },
-                separatorBuilder: (context, index) {
                   return ListTile(
                     onTap: () {
                       homeController.listtileOntap(index, homeSongs);
@@ -93,6 +105,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                       maxLines: 1,
                     ),
                   );
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider();
                 },
                 itemCount: item.data!.length);
           },

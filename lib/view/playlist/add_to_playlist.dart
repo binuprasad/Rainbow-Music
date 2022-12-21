@@ -75,7 +75,7 @@ class AddToPlaylist extends StatelessWidget {
                         type: ArtworkType.AUDIO,
                         nullArtworkWidget: const Icon(
                           Icons.music_note,
-                          color: Colors.black,
+                          color: black,
                         ),
                         artworkFit: BoxFit.fill,
                         artworkBorder:

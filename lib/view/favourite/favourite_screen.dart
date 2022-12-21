@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/favourite_screen%20_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -13,29 +14,47 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
     return GetBuilder<FavouriteScreenController>(
       builder: (controller) => Container(
         decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: appgradientcolor)),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: appgradientcolor,
+          ),
+        ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            centerTitle: true,
             elevation: 0,
-            title: const Text(
-              'Favourite',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            title: Row(
+              children: [
+                Text(
+                  'Favourite',
+                  style: GoogleFonts.ptSerif(
+                    color: black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 19
+                  ),
+                ),
+                const Expanded(
+                  child: Divider(
+                    thickness: 1,
+                    color: black,
+                  ),
+                ),
+              ],
             ),
           ),
           body: SafeArea(
             child: controller.favoriteSongs.isEmpty
-                ? const Center(
-                    child: Text('No FavouriteSongs Found'),
+                ? Center(
+                    child: Text(
+                      'No Songs Found',
+                      style: GoogleFonts.ptSerif(),
+                    ),
                   )
                 : GetBuilder<FavouriteScreenController>(
                     builder: (controller) => SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
                       child: ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

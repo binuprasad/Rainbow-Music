@@ -10,7 +10,7 @@ class FavouriteDB {
    initialise(List<SongModel> songs) {
     for (SongModel song in songs) {
       if (isfavor(song)) {
-       favcontroller. favoriteSongs.add(song);
+       favcontroller.favoriteSongs.add(song);
       }
     }
     isInitialized = true;
@@ -25,7 +25,7 @@ class FavouriteDB {
 
    add(SongModel song) async {
     favDB.add(song.id);
- favcontroller.   favoriteSongs.add(song);
+ favcontroller.favoriteSongs.add(song);
   }
 
    delete(int id) async {
