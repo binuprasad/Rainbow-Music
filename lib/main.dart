@@ -33,11 +33,10 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
-      home:  const SpalshScreen(),
+      home: const SpalshScreen(),
     );
   }
 }

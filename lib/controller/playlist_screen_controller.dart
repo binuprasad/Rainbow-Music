@@ -63,8 +63,6 @@ class PlaylistscreenController extends GetxController {
           ),
         ),
       ),
-
-    
     );
   }
 }

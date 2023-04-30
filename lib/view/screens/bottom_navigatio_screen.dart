@@ -36,7 +36,7 @@ class BottomNavigationScreen extends GetView<BottomnavigationController> {
                 () => BottomNavigationBar(
                   type: BottomNavigationBarType.fixed,
                   backgroundColor: black,
-                  selectedItemColor: Colors.yellow,
+                  selectedItemColor: const Color.fromARGB(255, 18, 44, 57),
                   unselectedItemColor: white,
                   currentIndex: bottomnavcontroller.baseindex.value,
                   onTap: (newIndex) {

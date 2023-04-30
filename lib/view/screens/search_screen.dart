@@ -111,6 +111,10 @@ class SearchSong extends GetView<Searchcontroller> {
                                       const Icon(Icons.music_note),
                                 ),
                                 title: Text(controller.foundSongs[index].title),
+                                subtitle: Text(
+                                  "${controller.foundSongs[index].artist}",
+                                  maxLines: 1,
+                                ),
                               ),
                             ),
                           )

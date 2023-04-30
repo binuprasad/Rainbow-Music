@@ -18,7 +18,6 @@ class AboutScreen extends GetView<AboutScreenController> {
             colors: appgradientcolor),
       ),
       child: Scaffold(
-        backgroundColor: white,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: white,

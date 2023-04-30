@@ -83,31 +83,34 @@ class HomeScreen extends GetView<HomeScreenController> {
             }
             GetAllSongs.songscopy = homeSongs;
 
-            return ListView.separated(
+            return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () {
-                      homeController.listtileOntap(index, homeSongs);
-                    },
-                    leading: QueryArtworkWidget(
-                      id: item.data![index].id,
-                      type: ArtworkType.AUDIO,
-                      nullArtworkWidget: const Icon(Icons.music_note),
-                    ),
-                    trailing: FavouriteBtn(song: HomeScreen.songs[index]),
-                    title: Text(
-                      item.data![index].displayNameWOExt,
-                      maxLines: 1,
-                    ),
-                    subtitle: Text(
-                      "${item.data![index].artist}",
-                      maxLines: 1,
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    color: Colors.lightBlue.withOpacity(0.5),
+                    margin: const EdgeInsets.symmetric(vertical: 7),
+                    child: ListTile(
+                      onTap: () {
+                        homeController.listtileOntap(index, homeSongs);
+                      },
+                      leading: QueryArtworkWidget(
+                        id: item.data![index].id,
+                        type: ArtworkType.AUDIO,
+                        nullArtworkWidget: const Icon(Icons.music_note),
+                      ),
+                      trailing: FavouriteBtn(song: HomeScreen.songs[index]),
+                      title: Text(
+                        item.data![index].displayNameWOExt,
+                        maxLines: 1,
+                      ),
+                      subtitle: Text(
+                        "${item.data![index].artist}",
+                        maxLines: 1,
+                      ),
                     ),
                   );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider();
                 },
                 itemCount: item.data!.length);
           },

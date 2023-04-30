@@ -17,10 +17,12 @@ class SettingsScreen extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: appgradientcolor,),),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: appgradientcolor,
+        ),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
@@ -40,7 +42,10 @@ class SettingsScreen extends GetView<SettingsController> {
           centerTitle: true,
           title: const Text(
             'Settings',
-            style: TextStyle(color: black, fontWeight: FontWeight.bold,),
+            style: TextStyle(
+              color: black,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         body: Column(

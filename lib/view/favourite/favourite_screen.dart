@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/favourite_screen%20_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -30,10 +31,7 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
                 Text(
                   'Favourite',
                   style: GoogleFonts.ptSerif(
-                    color: black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 19
-                  ),
+                      color: black, fontWeight: FontWeight.bold, fontSize: 19),
                 ),
                 const Expanded(
                   child: Divider(
@@ -47,11 +45,16 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
           body: SafeArea(
             child: controller.favoriteSongs.isEmpty
                 ? Center(
-                    child: Text(
-                      'No Songs Found',
-                      style: GoogleFonts.ptSerif(),
-                    ),
-                  )
+                    child: Column(
+                    children: [
+                      Lottie.network(
+                          'https://assets7.lottiefiles.com/packages/lf20_jw02fgil.json'),
+                      const Text(
+                        'No Favourite Songs',
+                        style: TextStyle(fontSize: 16, color: white),
+                      )
+                    ],
+                  ))
                 : GetBuilder<FavouriteScreenController>(
                     builder: (controller) => SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),

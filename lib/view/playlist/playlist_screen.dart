@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:lottie/lottie.dart';
 import 'package:music_player/colors/colors.dart';
 import 'package:music_player/controller/playlist_screen_controller.dart';
 import 'package:music_player/model/model.dart';
@@ -26,18 +27,30 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            centerTitle: true,
-            title: const Text(
-              'Playlist',
-              style:
-                  TextStyle(color: black, fontWeight: FontWeight.bold),
+            title: Row(
+              children: const[
+                 Text(
+                  'Playlist',
+                  style: TextStyle(color: black, fontWeight: FontWeight.bold),
+                ),
+                Expanded(child: Divider(thickness: 1.5,))
+              ],
             ),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Hive.box<MusicModel>('playlist_db').isEmpty
-                ? const Center(
-                    child: Text('Your Playlist is Empty'),
+                ? Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.4,
+                          child: Lottie.network(
+                              'https://assets1.lottiefiles.com/private_files/lf30_xnjjfyjt.json'),
+                        ),
+                        const Text('Your Playlist is Empty',style: TextStyle(color: white,fontSize: 16),),
+                      ],
+                    ),
                   )
                 : GetBuilder<PlaylistscreenController>(
                     builder: (controller) => GridView.builder(
@@ -54,15 +67,18 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
 
                         return GestureDetector(
                           onTap: () {
-                            Get.to(PlaylistView(
-                                playlist: data, folderindex: index,),);
+                            Get.to(
+                              PlaylistView(
+                                playlist: data,
+                                folderindex: index,
+                              ),
+                            );
                           },
                           child: Container(
-                             decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: black,
-                                  ),
-                            
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: black,
+                            ),
                             child: Column(
                               children: [
                                 Container(
@@ -71,9 +87,12 @@ class PlaylistScreen extends GetView<PlaylistscreenController> {
                                   ),
                                   width: double.infinity,
                                   height: 130,
-                                  child: Image.asset(
-                                    'assets/headphone.webp',
-                                    fit: BoxFit.fill,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset(
+                                      'assets/music-player.png',
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
