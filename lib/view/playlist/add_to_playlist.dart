@@ -64,51 +64,56 @@ class AddToPlaylist extends StatelessWidget {
             }
             return SingleChildScrollView(
               child: GetBuilder<AddToPlaylistController>(
-                builder: (controller) => ListView.separated(
+                builder: (controller) => ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   itemBuilder: (ctx, index) {
-                    return ListTile(
-                      leading: QueryArtworkWidget(
-                        id: item.data![index].id,
-                        type: ArtworkType.AUDIO,
-                        nullArtworkWidget: const Icon(
-                          Icons.music_note,
-                          color: black,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric( horizontal: 8.0),
+                      child: Card(
+                        color: Colors.lightBlue.withOpacity(0.5),
+                        margin: const EdgeInsets.symmetric(vertical: 7),
+                        child: ListTile(
+                          leading: QueryArtworkWidget(
+                            id: item.data![index].id,
+                            type: ArtworkType.AUDIO,
+                            nullArtworkWidget: const Icon(
+                              Icons.music_note,
+                              color: black,
+                            ),
+                            artworkFit: BoxFit.fill,
+                            artworkBorder:
+                                const BorderRadius.all(Radius.circular(30)),
+                          ),
+                          title: Text(
+                            item.data![index].displayNameWOExt,
+                            maxLines: 1,
+                          ),
+                          subtitle: Text(
+                            "${item.data![index].artist}",
+                            maxLines: 1,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              addtocontroller.playlistCheck(
+                                  item.data![index], playlist);
+                            },
+                            icon: !playlist.isValueIn(item.data![index].id)
+                                ? const Icon(
+                                    Icons.playlist_add_check_circle,
+                                    color: black,
+                                  )
+                                : const Icon(
+                                    Icons.close,
+                                    color: red,
+                                  ),
+                          ),
                         ),
-                        artworkFit: BoxFit.fill,
-                        artworkBorder:
-                            const BorderRadius.all(Radius.circular(30)),
-                      ),
-                      title: Text(
-                        item.data![index].displayNameWOExt,
-                        maxLines: 1,
-                      ),
-                      subtitle: Text(
-                        "${item.data![index].artist}",
-                        maxLines: 1,
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          addtocontroller.playlistCheck(
-                              item.data![index], playlist);
-                        },
-                        icon: !playlist.isValueIn(item.data![index].id)
-                            ? const Icon(
-                                Icons.playlist_add_check_circle,
-                                color: black,
-                              )
-                            : const Icon(
-                                Icons.close,
-                                color: red,
-                              ),
                       ),
                     );
                   },
-                  separatorBuilder: (ctx, index) {
-                    return const Divider();
-                  },
+                 
                   itemCount: item.data!.length,
                 ),
               ),

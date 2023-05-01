@@ -61,73 +61,78 @@ class PlaylistView extends GetView<PlaylistViewController> {
                 ? const Center(
                     child: Text('Add your songs'),
                   )
-                : ListView.separated(
+                : ListView.builder(
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        onTap: () {
-                          List<SongModel> newlist = [...playlistsong];
-                          GetAllSongs.player.stop();
-                          GetAllSongs.player.setAudioSource(
-                              GetAllSongs.createSongList(newlist),
-                              initialIndex: index);
-                          GetAllSongs.player.play();
-                          Get.to(
-                              FullScreen(playersong: GetAllSongs.playingSong));
-                        },
-                        leading: QueryArtworkWidget(
-                          id: playlistsong[index].id,
-                          type: ArtworkType.AUDIO,
-                          nullArtworkWidget: const Icon(
-                            Icons.music_note_outlined,
-                            size: 30,
-                            color: black,
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Card(
+                          color: Colors.lightBlue.withOpacity(0.5),
+                        margin: const EdgeInsets.symmetric(vertical: 7),
+                          child: ListTile(
+                            onTap: () {
+                              List<SongModel> newlist = [...playlistsong];
+                              GetAllSongs.player.stop();
+                              GetAllSongs.player.setAudioSource(
+                                  GetAllSongs.createSongList(newlist),
+                                  initialIndex: index);
+                              GetAllSongs.player.play();
+                              Get.to(
+                                  FullScreen(playersong: GetAllSongs.playingSong));
+                            },
+                            leading: QueryArtworkWidget(
+                              id: playlistsong[index].id,
+                              type: ArtworkType.AUDIO,
+                              nullArtworkWidget: const Icon(
+                                Icons.music_note_outlined,
+                                size: 30,
+                                color: black,
+                              ),
+                            ),
+                            title: Text(
+                              playlistsong[index].title,
+                              style: const TextStyle(fontSize: 15, color: black),
+                              maxLines: 1,
+                            ),
+                            subtitle: Text(
+                              playlistsong[index].artist!,
+                              style: const TextStyle(color: Colors.black54),
+                              maxLines: 1,
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {
+                                Get.defaultDialog(
+                                  title: 'Remove song?',
+                                  content: const Text('Are you sure ?',style: TextStyle(color: grey),),
+                                  confirm: TextButton(
+                                    onPressed: () {
+                                      playlist.deleteData(playlistsong[index].id);
+                                      Get.back();
+                                    },
+                                    child: const Text(
+                                      'Yes',
+                                      style: TextStyle(
+                                        color: black,
+                                      ),
+                                    ),
+                                  ),
+                                  cancel: TextButton(
+                                    onPressed: () => Get.back(),
+                                    child: const Text(
+                                      'No',
+                                      style: TextStyle(
+                                        color: black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.delete),
+                            ),
                           ),
-                        ),
-                        title: Text(
-                          playlistsong[index].title,
-                          style: const TextStyle(fontSize: 15, color: black),
-                          maxLines: 1,
-                        ),
-                        subtitle: Text(
-                          playlistsong[index].artist!,
-                          style: const TextStyle(color: Colors.black54),
-                          maxLines: 1,
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            Get.defaultDialog(
-                              title: 'Remove song?',
-                              content: const Text('Are you sure ?',style: TextStyle(color: grey),),
-                              confirm: TextButton(
-                                onPressed: () {
-                                  playlist.deleteData(playlistsong[index].id);
-                                  Get.back();
-                                },
-                                child: const Text(
-                                  'Yes',
-                                  style: TextStyle(
-                                    color: black,
-                                  ),
-                                ),
-                              ),
-                              cancel: TextButton(
-                                onPressed: () => Get.back(),
-                                child: const Text(
-                                  'No',
-                                  style: TextStyle(
-                                    color: black,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.delete),
                         ),
                       );
                     },
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
+                   
                     itemCount: playlistsong.length);
           },
         ),

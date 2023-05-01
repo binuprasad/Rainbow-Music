@@ -58,47 +58,54 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
                 : GetBuilder<FavouriteScreenController>(
                     builder: (controller) => SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
-                      child: ListView.separated(
+                      child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         itemCount: controller.favoriteSongs.length,
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const Divider();
-                        },
+                       
                         itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            leading: QueryArtworkWidget(
-                              id: controller.favoriteSongs[index].id,
-                              type: ArtworkType.AUDIO,
-                              nullArtworkWidget: const Icon(
-                                Icons.music_note_outlined,
-                                color: Colors.black,
-                                size: 35,
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Card(
+                                                  //      shape: RoundedRectangleBorder(
+                                                  // borderRadius: BorderRadius.circular(20)),
+                                              color: Colors.lightBlue.withOpacity(0.5),
+                                              margin: const EdgeInsets.symmetric(vertical: 7),
+                              child: ListTile(
+                                leading: QueryArtworkWidget(
+                                  id: controller.favoriteSongs[index].id,
+                                  type: ArtworkType.AUDIO,
+                                  nullArtworkWidget: const Icon(
+                                    Icons.music_note_outlined,
+                                    color: Colors.black,
+                                    size: 35,
+                                  ),
+                                ),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    controller.deletesong(index);
+                                  },
+                                  icon: const Icon(
+                                    Icons.favorite,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                title: Text(
+                                  controller.favoriteSongs[index].title,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 15),
+                                ),
+                                subtitle: Text(
+                                  controller.favoriteSongs[index].album!,
+                                  style: const TextStyle(color: Colors.black54),
+                                ),
+                                onTap: () {
+                                  controller.listileOntap(index);
+                                },
                               ),
                             ),
-                            trailing: IconButton(
-                              onPressed: () {
-                                controller.deletesong(index);
-                              },
-                              icon: const Icon(
-                                Icons.favorite,
-                                color: Colors.black,
-                              ),
-                            ),
-                            title: Text(
-                              controller.favoriteSongs[index].title,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 15),
-                            ),
-                            subtitle: Text(
-                              controller.favoriteSongs[index].album!,
-                              style: const TextStyle(color: Colors.black54),
-                            ),
-                            onTap: () {
-                              controller.listileOntap(index);
-                            },
                           );
                         },
                       ),

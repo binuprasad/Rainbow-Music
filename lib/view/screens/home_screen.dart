@@ -26,6 +26,7 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
       ),
       child: Scaffold(
+       
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -86,28 +87,30 @@ class HomeScreen extends GetView<HomeScreenController> {
             return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: Colors.lightBlue.withOpacity(0.5),
-                    margin: const EdgeInsets.symmetric(vertical: 7),
-                    child: ListTile(
-                      onTap: () {
-                        homeController.listtileOntap(index, homeSongs);
-                      },
-                      leading: QueryArtworkWidget(
-                        id: item.data![index].id,
-                        type: ArtworkType.AUDIO,
-                        nullArtworkWidget: const Icon(Icons.music_note),
-                      ),
-                      trailing: FavouriteBtn(song: HomeScreen.songs[index]),
-                      title: Text(
-                        item.data![index].displayNameWOExt,
-                        maxLines: 1,
-                      ),
-                      subtitle: Text(
-                        "${item.data![index].artist}",
-                        maxLines: 1,
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Card(
+                      
+                      color: Colors.lightBlue.withOpacity(0.5),
+                      margin: const EdgeInsets.symmetric(vertical: 7),
+                      child: ListTile(
+                        onTap: () {
+                          homeController.listtileOntap(index, homeSongs);
+                        },
+                        leading: QueryArtworkWidget(
+                          id: item.data![index].id,
+                          type: ArtworkType.AUDIO,
+                          nullArtworkWidget: const Icon(Icons.music_note),
+                        ),
+                        trailing: FavouriteBtn(song: HomeScreen.songs[index]),
+                        title: Text(
+                          item.data![index].displayNameWOExt,
+                          maxLines: 1,
+                        ),
+                        subtitle: Text(
+                          "${item.data![index].artist}",
+                          maxLines: 1,
+                        ),
                       ),
                     ),
                   );
